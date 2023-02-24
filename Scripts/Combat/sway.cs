@@ -78,12 +78,27 @@ public class sway : MonoBehaviour
 
     [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
     public Vector2 sprintRotSmooth = new Vector2(5f, 2f);
+    
+    [Space(5)]
+    [Header("Movement Sway")]
+    public float forwardMoveFactor = 0.8f;
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 hipZAmount;
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 aimZAmount;
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 crouchZAmount;
+
 
     Vector2 _swayAmount;
     Vector2 _smooth;
     
     Vector2 _swayRotAmount;
     Vector2 _smoothRot;
+    Vector2 _ZrotAmount;
 
     Vector3 def;
     Quaternion defRot;
@@ -105,6 +120,7 @@ public class sway : MonoBehaviour
 
             _swayRotAmount = aimRotAmount;
             _smoothRot = aimRotSmooth;
+            _ZrotAmount = aimZAmount;
         }
         else if (PlayerController.Sprinting)
         {
@@ -113,6 +129,7 @@ public class sway : MonoBehaviour
 
             _swayRotAmount = sprintRotAmount;
             _smoothRot = sprintRotSmooth;
+            _ZrotAmount = Vector2.zero;
         }
         else if (PlayerController.crouching)
         {
@@ -121,6 +138,7 @@ public class sway : MonoBehaviour
 
             _swayRotAmount = crouchRotAmount;
             _smoothRot = crouchRotSmooth;
+            _ZrotAmount = crouchZAmount;
         }
         else
         {
@@ -129,6 +147,7 @@ public class sway : MonoBehaviour
 
             _swayRotAmount = hipRotAmount;
             _smoothRot = hipRotSmooth;
+            _ZrotAmount = hipZAmount;
         }
     }
 
@@ -162,24 +181,36 @@ public class sway : MonoBehaviour
         //controls
         float t_x_mouse = Input.GetAxis("Mouse X") * _swayRotAmount.x;
         float t_y_mouse = Input.GetAxis("Mouse Y") * -_swayRotAmount.x;
+        
+        float t_x_move = Input.GetAxisRaw("Horizontal") * -_ZrotAmount.x;
+        float t_y_move = Input.GetAxisRaw("Vertical") * _ZrotAmount.x;
 
-        if (t_x_mouse > _swayRotAmount.y)
-            t_x_mouse = _swayRotAmount.y;
+        // if (t_x_mouse > _swayRotAmount.y)
+        //     t_x_mouse = _swayRotAmount.y;
 
-        if (t_x_mouse < -_swayRotAmount.y)
-            t_x_mouse = -_swayRotAmount.y;
+        // if (t_x_mouse < -_swayRotAmount.y)
+        //     t_x_mouse = -_swayRotAmount.y;
 
-        if (t_y_mouse > _swayRotAmount.y)
-            t_y_mouse = _swayRotAmount.y;
+        // if (t_y_mouse > _swayRotAmount.y)
+        //     t_y_mouse = _swayRotAmount.y;
 
-        if (t_y_mouse < -_swayRotAmount.y)
-            t_y_mouse = -_swayRotAmount.y;
+        // if (t_y_mouse < -_swayRotAmount.y)
+        //     t_y_mouse = -_swayRotAmount.y;
+        
+        // clamp mouse sway
+        t_x_mouse = Mathf.Clamp(t_x_mouse, -_swayRotAmount.y, _swayRotAmount.y);
+        t_y_mouse = Mathf.Clamp(t_y_mouse, -_swayRotAmount.y, _swayRotAmount.y);
+        
+        // clamp movement sway
+        t_x_move = Mathf.Clamp(t_x_move, -_ZrotAmount.y, _ZrotAmount.y);
+        t_y_move = Mathf.Clamp(t_y_move, -_ZrotAmount.y, _ZrotAmount.y);
 
 
         //calculate target rotation
         Quaternion t_x_adj = Quaternion.AngleAxis(t_x_mouse, Vector3.up);
-        Quaternion t_y_adj = Quaternion.AngleAxis(t_y_mouse, Vector3.right);
-        Quaternion target_rotation = defRot * t_x_adj * t_y_adj;
+        Quaternion t_y_adj = Quaternion.AngleAxis(t_y_mouse + (forwardMoveFactor * t_y_move), Vector3.right);
+        Quaternion t_z_adj = Quaternion.AngleAxis(t_x_move, Vector3.forward);
+        Quaternion target_rotation = defRot * t_x_adj * t_y_adj * t_z_adj;
 
         //rotate towards target rotation
         swayTransform.localRotation = Quaternion.Slerp(swayTransform.localRotation, target_rotation, Time.deltaTime * _smoothRot.x);

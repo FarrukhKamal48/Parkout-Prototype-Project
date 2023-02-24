@@ -192,7 +192,7 @@ public class Melee : Weapon
         _readyToShoot = false;
         
         // attack functionality
-        Debug.Log("Punch");
+        // Debug.Log("Punch");
         
         // So we can attack again after an attackRate
         StartCoroutine(ResetAttack());
@@ -207,7 +207,7 @@ public class Melee : Weapon
     bool getEnemy(Transform origin_T)
     {
         return Physics.SphereCast(RightTrigger.position, triggerRadious, RightTrigger.forward, 
-        out hitInfo, 0.2f, enemyMask);
+        out hitInfo, 0.1f, enemyMask);
     }
     
     int getValidCombo(int combo)
@@ -228,6 +228,7 @@ public class Melee : Weapon
         if (_readyToShoot)
         {
             currentCombo = _targetHit ? currentCombo++ : 0;
+            // _targetHit = false;
             
             // make sure that this combo does'nt request the left hand when left hand is in use
             currentCombo = getValidCombo(currentCombo);
@@ -242,8 +243,6 @@ public class Melee : Weapon
             
             DamageEnemy(enemyTransform, hitInfo);
         }
-        else
-            _targetHit = false;
         
     }
     
@@ -260,5 +259,11 @@ public class Melee : Weapon
     {
         yield return new WaitForSeconds(attackRate);
         _readyToShoot = true;
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(RightTrigger.position + (RightTrigger.forward * 0.1f), triggerRadious);     
     }
 }

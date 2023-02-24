@@ -275,6 +275,10 @@ MonoBehaviour:
   crouchRotSmooth: {x: 5, y: 2}
   sprintRotAmount: {x: 0.055, y: 0.09}
   sprintRotSmooth: {x: 5, y: 2}
+  forwardMoveFactor: 0.8
+  hipZAmount: {x: 5, y: 10}
+  aimZAmount: {x: 2, y: 5}
+  crouchZAmount: {x: 3.5, y: 5}
 --- !u!114 &566536315846993879
 MonoBehaviour:
   m_ObjectHideFlags: 0

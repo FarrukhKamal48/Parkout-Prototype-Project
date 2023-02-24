@@ -22,7 +22,7 @@ public class ProjectileGun : Weapon
     private float shootForce;
     private float upwardForce;
     //Gun
-    private float fireRate, spread, reloadTime, timeBetweenShots;
+    private float fireRate, shootWarmUp, spread, reloadTime, timeBetweenShots;
     private int magSize, bulletsPerTap;
     private bool allowButtonHold;
     private bool aimHold;
@@ -133,6 +133,7 @@ public class ProjectileGun : Weapon
         shootForce = Settings.shootForce;
         upwardForce = Settings.upwardForce;
         fireRate = Settings.fireRate;
+        shootWarmUp = Settings.shootWarmUp;
         spread = Settings.spread;
         reloadTime = Settings.reloadTime;
         timeBetweenShots = Settings.timeBetweenShots;
@@ -235,6 +236,13 @@ public class ProjectileGun : Weapon
             bulletsShot = 0;
             Shoot();
         }
+    }
+    
+    float elapsedWarmUp;
+    void warmUpShoot()
+    {
+        if (elapsedWarmUp < shootWarmUp) elapsedWarmUp += Time.deltaTime;
+        else Shoot();
     }
 
     public override void Shoot()

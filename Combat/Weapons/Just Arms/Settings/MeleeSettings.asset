@@ -18,7 +18,7 @@ MonoBehaviour:
   maxCombo: 2
   comboResetTimer: 0.5
   allowButtonHold: 1
-  triggerRadious: 0.3
+  triggerRadious: 0.1
   isRightChoosen: 010001
   aimHold: 0
   aimSpeed: 10

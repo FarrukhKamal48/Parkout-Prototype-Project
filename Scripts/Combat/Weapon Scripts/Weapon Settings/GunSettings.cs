@@ -23,6 +23,7 @@ public class GunSettings : ScriptableObject
     [Space(5)]
     [Header("Shoot Settings")]
     public float fireRate;
+    public float shootWarmUp;
     public float spread;
     public float reloadTime;
     public float timeBetweenShots;

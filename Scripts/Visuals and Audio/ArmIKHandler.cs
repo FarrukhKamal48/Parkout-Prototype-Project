@@ -6,6 +6,7 @@ public class ArmIKHandler : MonoBehaviour
 {
     [SerializeField] private List<IKLerp> R_locations = new List<IKLerp>();
     [SerializeField] private List<IKLerp> L_locations = new List<IKLerp>();
+    [SerializeField] private float lerpSpeedScale = 100f;
     [SerializeField] private GunManager gunManager;
 
     private List<Transform> R_targetTransforms = new List<Transform>();
@@ -37,13 +38,15 @@ public class ArmIKHandler : MonoBehaviour
             R_current_T_target = R_targetTransforms[i];
 
             // lerping Positions
-            R_current_T_toMove.position = Vector3.Lerp(R_current_T_toMove.position, R_current_T_target.position,
-                    R_locations[i].lerpSpeeds.x * Time.deltaTime);
+            // R_current_T_toMove.position = Vector3.Lerp(R_current_T_toMove.position, R_current_T_target.position,
+            //         R_locations[i].lerpSpeeds.x * lerpSpeedScale * Time.deltaTime);
 
-            // lerping Rotations
-            R_current_T_toMove.rotation = Quaternion.Slerp(R_current_T_toMove.rotation, R_current_T_target.rotation,
-                    R_locations[i].lerpSpeeds.y * Time.deltaTime);
-
+            // // lerping Rotations
+            // R_current_T_toMove.rotation = Quaternion.Slerp(R_current_T_toMove.rotation, R_current_T_target.rotation,
+            //         R_locations[i].lerpSpeeds.y * lerpSpeedScale * Time.deltaTime);
+           
+            R_current_T_toMove.position = R_current_T_target.position;
+            R_current_T_toMove.rotation = R_current_T_target.rotation;
 
 
             // for left arm
@@ -52,12 +55,15 @@ public class ArmIKHandler : MonoBehaviour
             L_current_T_target = L_targetTransforms[i];
 
             // lerping Positions
-            L_current_T_toMove.position = Vector3.Lerp(L_current_T_toMove.position, L_current_T_target.position,
-                    L_locations[i].lerpSpeeds.x * Time.deltaTime);
+            // L_current_T_toMove.position = Vector3.Lerp(L_current_T_toMove.position, L_current_T_target.position,
+            //         L_locations[i].lerpSpeeds.x * lerpSpeedScale * Time.deltaTime);
 
-            // lerping Rotations
-            L_current_T_toMove.rotation = Quaternion.Slerp(L_current_T_toMove.rotation, L_current_T_target.rotation,
-                    L_locations[i].lerpSpeeds.y * Time.deltaTime);
+            // // lerping Rotations
+            // L_current_T_toMove.rotation = Quaternion.Slerp(L_current_T_toMove.rotation, L_current_T_target.rotation,
+            //         L_locations[i].lerpSpeeds.y * lerpSpeedScale * Time.deltaTime);
+
+            L_current_T_toMove.position = L_current_T_target.position;
+            L_current_T_toMove.rotation = L_current_T_target.rotation;
         }
     }
     
