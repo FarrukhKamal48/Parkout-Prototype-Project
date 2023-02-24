@@ -231,10 +231,9 @@ public class ProjectileGun : Weapon
 
         if (_readyToShoot && _shooting && _reloading == false && bulletsLeft <= 0) Reload();
 
-        if (_readyToShoot && _shooting && _reloading == false && bulletsLeft > 0)
+        if (_shooting)
         {
-            bulletsShot = 0;
-            Shoot();
+            warmUpShoot();
         }
     }
     
@@ -242,7 +241,14 @@ public class ProjectileGun : Weapon
     void warmUpShoot()
     {
         if (elapsedWarmUp < shootWarmUp) elapsedWarmUp += Time.deltaTime;
-        else Shoot();
+        else
+        {
+            if (_readyToShoot && _reloading == false && bulletsLeft > 0)
+            {
+                bulletsShot = 0;
+                Shoot();
+            }
+        }
     }
 
     public override void Shoot()
