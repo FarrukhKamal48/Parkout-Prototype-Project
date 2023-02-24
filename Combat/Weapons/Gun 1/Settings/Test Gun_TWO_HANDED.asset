@@ -24,7 +24,7 @@ MonoBehaviour:
   spread: 0
   reloadTime: 1.5
   timeBetweenShots: 0
-  magSize: 5
+  magSize: 10
   bulletsPerTap: 1
   allowButtonHold: 1
   aimHold: 1

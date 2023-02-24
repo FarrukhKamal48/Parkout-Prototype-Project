@@ -252,8 +252,21 @@ public class ProjectileGun : Weapon
             {
                 bulletsShot = 0;
                 Shoot();
+                shootEffects(); // so effects like particles and sound run once
             }
         }
+    }
+    
+    void shootEffects()
+    {
+        // creating the muzzleFlash
+        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+
+        // play the shoot sound
+        audioManager.PlaySound("Fire");
+
+        // apply recoil
+        PlayerController.cameraLook.GetComponent<RecoilScript>().RecoilFire(_aiming);
     }
 
     public override void Shoot()
@@ -271,8 +284,6 @@ public class ProjectileGun : Weapon
 
         GameObject currentBullet = Instantiate(bullet, fpsCam.position, Quaternion.identity); // making the invisible bullet
         currentBullet.GetComponent<CustomBullet>().muzzlePoint = attackPoint;
-
-        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity); // creating the muzzleFlash
 
         currentBullet.transform.forward = shootDirspread.normalized; // applying Random direction to the invisible bullet
 
@@ -294,10 +305,6 @@ public class ProjectileGun : Weapon
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
             Invoke("Shoot", timeBetweenShots);
 
-        //fireSound.Play();
-        audioManager.PlaySound("Fire");
-
-        PlayerController.cameraLook.GetComponent<RecoilScript>().RecoilFire(_aiming);
     }
 
     void ResetShot()

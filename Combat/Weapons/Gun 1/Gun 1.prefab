@@ -104,7 +104,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 181472309113435679}
-  - component: {fileID: 2748469589228413071}
   - component: {fileID: 181472309113435672}
   - component: {fileID: 31402551085219938}
   - component: {fileID: 603747193556154236}
@@ -136,22 +135,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2748469589228413071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181472309113435678}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c54d45bbf2a11a60bac412adfc29b473, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunScript: {fileID: 181472309113435672}
-  oneHanded: {fileID: 11400000, guid: e38f228ef8d2e49a99b34d2301e3e9ff, type: 2}
-  twoHanded: {fileID: 11400000, guid: f52a4ae756685824d9ac856a8cc1c227, type: 2}
-  switchKey: 92
 --- !u!114 &181472309113435672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +178,7 @@ MonoBehaviour:
   fpsCam: {fileID: 0}
   gunManager: {fileID: 0}
   startPos: {x: 0.39, y: -0.16, z: 0.6}
-  switchKey: 92
+  switchKey: 308
   oneHanded: {fileID: 11400000, guid: e38f228ef8d2e49a99b34d2301e3e9ff, type: 2}
   twoHanded: {fileID: 11400000, guid: f52a4ae756685824d9ac856a8cc1c227, type: 2}
   Settings: {fileID: 11400000, guid: f52a4ae756685824d9ac856a8cc1c227, type: 2}
