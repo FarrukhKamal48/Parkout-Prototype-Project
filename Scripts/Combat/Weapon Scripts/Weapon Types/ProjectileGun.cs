@@ -231,19 +231,24 @@ public class ProjectileGun : Weapon
 
         if (_readyToShoot && _shooting && _reloading == false && bulletsLeft <= 0) Reload();
 
-        if (_shooting)
-        {
+        if (_shooting && _reloading == false)
             warmUpShoot();
-        }
+        else
+            elapsedWarmUp = 0f;
     }
     
     float elapsedWarmUp;
     void warmUpShoot()
     {
-        if (elapsedWarmUp < shootWarmUp) elapsedWarmUp += Time.deltaTime;
+        if (elapsedWarmUp < shootWarmUp)
+        { 
+            elapsedWarmUp += Time.deltaTime;
+            Debug.Log("Warming");
+        }
         else
         {
-            if (_readyToShoot && _reloading == false && bulletsLeft > 0)
+            Debug.Log("Complete");
+            if (_readyToShoot && bulletsLeft > 0)
             {
                 bulletsShot = 0;
                 Shoot();
@@ -304,6 +309,7 @@ public class ProjectileGun : Weapon
     void Reload()
     {
         _reloading = true;
+        elapsedWarmUp = 0f;
         CancelReload();
         Invoke("ReloadFinished", reloadTime);
 

@@ -20,6 +20,7 @@ MonoBehaviour:
   shootForce: 250
   upwardForce: 0
   fireRate: 0.3
+  shootWarmUp: 0
   spread: 0
   reloadTime: 1.5
   timeBetweenShots: 0
