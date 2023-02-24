@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599df1b700d6ddc75bb373e140dc7c8b, type: 3}
+  m_Name: Test_Melle
+  m_EditorClassIdentifier: 
+  name: test_melee
+  impactEffect: {fileID: 0}
+  attackRate: 1
+  maxCombo: 3
+  comboResetTimer: 0.5
+  allowButtonHold: 0
+  aimHold: 0
+  aimSpeed: 0
+  idleSpeed: 0
+  normalAnimSpeed: 0
+  shootAnimSpeed: 0
+  sprintAnimSpeed: 0
