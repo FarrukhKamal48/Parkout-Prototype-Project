@@ -45,6 +45,10 @@ public class ProjectileGun : Weapon
     public Transform adsRotator;
     public Transform ADS;
     public Transform t_altADS;
+    
+    [Space(5)]
+    [Header("Crouch Animation")]
+    public Transform crouch;
 
     [Space(5)]
     [Header("Shoot Animation")]
@@ -82,6 +86,10 @@ public class ProjectileGun : Weapon
     public static bool idle, aiming, altADS, shooting, readyToShoot, reloading;
 
     public bool allowInvoke = true;
+    
+    // private variables
+    float p_aim;
+    float p_idle;
 
     void Awake()
     {
@@ -149,17 +157,38 @@ public class ProjectileGun : Weapon
         reloadAnimSpeed = Settings.reloadAnimSpeed;
         sprintAnimSpeed = Settings.sprintAnimSpeed;
     }
-
-    public override void Animation()
+    
+    void resetCurveAnimFloats()
     {
         if (_idle)
         {
-            WeaponAnimation.Animate(hipTransform, hip, idleSpeed, WeaponAnimation.Animatemode._transform);
-            WeaponAnimation.Animate(adsRotator, hip, idleSpeed, WeaponAnimation.Animatemode._rotation);
+            p_aim = 0f;
+        }
+        
+        if (_aiming)
+        {
+            p_idle = 0f;
+        }
+    }
 
+    public override void Animation()
+    {
+        
+        // reset procedural animation
+        resetCurveAnimFloats();
+
+        if (_idle)
+        {
+            // lerp to hip position
+            p_idle = Mathf.Min(p_idle + Time.deltaTime, 1f);
+            float _anim_speed = idleSpeed * Settings.AimSpeed.Evaluate(p_idle);
+            WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
+
+            // set blend tree floats
             gunAnimator.SetFloat("Shoot Blend", Mathf.Lerp(gunAnimator.GetFloat("Shoot Blend"), 0.0f, shoot_Blend_speed * Time.deltaTime));
             gunAnimator.SetFloat("Reload Blend", Mathf.Lerp(gunAnimator.GetFloat("Reload Blend"), 0.0f, reload_Blend_speed * Time.deltaTime));
 
+            // blend walking animations
             if (PlayerController.walking == true)
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 1f, idle_Blend_speed * Time.deltaTime));
             else
@@ -167,42 +196,36 @@ public class ProjectileGun : Weapon
         }
         else if (_aiming)
         {
-            WeaponAnimation.Animate(hipTransform, ADS, aimSpeed, WeaponAnimation.Animatemode._transform);
+            // lerp to aim postion
+            p_aim = Mathf.Min(p_aim + Time.deltaTime, 1f);
+            float _anim_speed = aimSpeed * Settings.AimSpeed.Evaluate(p_aim);
+            WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
 
-            if (_altADS)
-                WeaponAnimation.Animate(adsRotator, t_altADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
-            else
-                WeaponAnimation.Animate(adsRotator, ADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
+            // if (_altADS)
+            //     WeaponAnimation.Animate(adsRotator, t_altADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
+            // else
+            //     WeaponAnimation.Animate(adsRotator, ADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
 
+            // set blend tree floats
             gunAnimator.SetFloat("Shoot Blend", Mathf.Lerp(gunAnimator.GetFloat("Shoot Blend"), 1.0f, shoot_Blend_speed * Time.deltaTime));
             gunAnimator.SetFloat("Reload Blend", Mathf.Lerp(gunAnimator.GetFloat("Reload Blend"), 1.0f, reload_Blend_speed * Time.deltaTime));
 
+            // blend walking animations
             if (PlayerController.aimWalking == true)
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), -1f, idle_Blend_speed * Time.deltaTime));
             else
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 0.0f, idle_Blend_speed * Time.deltaTime));
         }
 
-        // if (_idle || _aiming || _altADS)
-        //     animatorSpeed = 1f;
-        // else if (!_readyToShoot)
-        //     animatorSpeed = fireRate;
-        // else if (_reloading)
-        //     animatorSpeed = reloadTime;
-        // else if (PlayerController.Sprinting)
-        //     animatorSpeed = sprintAnimSpeed;
-        // else
-        //     animatorSpeed = 1f;
-        //
-        // gunAnimator.speed = animatorSpeed
 
+        // animation speeds
         gunAnimator.SetFloat("NORMAL_ANIM_SPEED", normalAnimSpeed);
         gunAnimator.SetFloat("SHOOT_ANIM_SPEED", shootAnimSpeed);
         gunAnimator.SetFloat("RELOAD_ANIM_SPEED", reloadAnimSpeed);
         gunAnimator.SetFloat("SPRINT_ANIM_SPEED", sprintAnimSpeed);
         
-        //gunAnimator.SetFloat("Reload Blend", 1.0f);
 
+        // setting animator parameters
         gunAnimator.SetBool("Aiming", _aiming);
         gunAnimator.SetBool("Shooting", !_readyToShoot);
         gunAnimator.SetBool("Reloading", _reloading);

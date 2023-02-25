@@ -81,7 +81,8 @@ public class sway : MonoBehaviour
     
     [Space(5)]
     [Header("Movement Sway")]
-    public float forwardMoveFactor = 0.8f;
+    [Tooltip("X is for forwardfactor. Y is for bacward factor")]
+    public Vector2 forwardMoveFactor = new Vector2(0.8f, 0.4f);
 
     // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
     public Vector2 hipZAmount;
@@ -207,8 +208,11 @@ public class sway : MonoBehaviour
 
 
         //calculate target rotation
+        
+        float forwardFactor = t_y_move >= 0f ? forwardMoveFactor.x * t_y_move : forwardMoveFactor.y * t_y_move;
+        
         Quaternion t_x_adj = Quaternion.AngleAxis(t_x_mouse, Vector3.up);
-        Quaternion t_y_adj = Quaternion.AngleAxis(t_y_mouse + (forwardMoveFactor * t_y_move), Vector3.right);
+        Quaternion t_y_adj = Quaternion.AngleAxis(t_y_mouse + forwardFactor, Vector3.right);
         Quaternion t_z_adj = Quaternion.AngleAxis(t_x_move, Vector3.forward);
         Quaternion target_rotation = defRot * t_x_adj * t_y_adj * t_z_adj;
 

@@ -30609,7 +30609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1219667198
 Transform:
   m_ObjectHideFlags: 0
@@ -32374,7 +32374,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh128806
+  m_Name: pb_Mesh25276
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -40353,7 +40353,7 @@ MonoBehaviour:
   crouchRotSmooth: {x: 5, y: 2}
   sprintRotAmount: {x: 0.055, y: 0.09}
   sprintRotSmooth: {x: 5, y: 2}
-  forwardMoveFactor: 0.8
+  forwardMoveFactor: {x: 0.8, y: 0.4}
   hipZAmount: {x: 0.01, y: 0.05}
   aimZAmount: {x: 0.01, y: 0.05}
   crouchZAmount: {x: 0.01, y: 0.05}
