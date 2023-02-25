@@ -99,6 +99,7 @@ public class ProjectileGun : Weapon
         _readyToShoot = true;
     }
 
+    float m = 0f;
     void Update()
     {
         SetupSettings();
@@ -106,7 +107,7 @@ public class ProjectileGun : Weapon
         Animation();
 
         MyInput();
-
+        
         // debug stuff
 
         ProjectileGun.idle = _idle;
@@ -180,7 +181,7 @@ public class ProjectileGun : Weapon
         if (_idle)
         {
             // lerp to hip position
-            p_idle = Mathf.Min(p_idle + Time.deltaTime, 1f);
+            p_idle = Mathf.MoveTowards(p_idle, 1f, Time.deltaTime);
             float _anim_speed = idleSpeed * Settings.AimSpeed.Evaluate(p_idle);
             WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
 
@@ -197,7 +198,7 @@ public class ProjectileGun : Weapon
         else if (_aiming)
         {
             // lerp to aim postion
-            p_aim = Mathf.Min(p_aim + Time.deltaTime, 1f);
+            p_aim = Mathf.MoveTowards(p_aim, 1f, Time.deltaTime);
             float _anim_speed = aimSpeed * Settings.AimSpeed.Evaluate(p_aim);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
 
