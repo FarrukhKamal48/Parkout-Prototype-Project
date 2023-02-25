@@ -36,6 +36,8 @@ MonoBehaviour:
   snapiness: 15
   returnSpeed: 6
   aimSpeed: 10
+  idleSpeed: 10
+  crouchSpeed: 10
   AimSpeed:
     serializedVersion: 2
     m_Curve:
@@ -69,7 +71,39 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  idleSpeed: 10
+  CrouchSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0015258789
+      inSlope: 0.27970934
+      outSlope: 0.27970934
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.27889055
+      value: 0.999451
+      inSlope: 0.111581646
+      outSlope: 0.111581646
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 1
+      outWeight: 0.47029638
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.049005494
+      outSlope: 0.049005494
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.44042775
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   normalAnimSpeed: 1
   shootAnimSpeed: 1
   reloadAnimSpeed: 1

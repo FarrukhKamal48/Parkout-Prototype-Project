@@ -53,8 +53,10 @@ public class GunSettings : ScriptableObject
     [Space(5)]
     [Header("Animation Settings")]
     public float aimSpeed;
-    public AnimationCurve AimSpeed;
     public float idleSpeed;
+    public float crouchSpeed;
+    public AnimationCurve AimSpeed;
+    public AnimationCurve CrouchSpeed;
 
     public float normalAnimSpeed; 
     public float shootAnimSpeed; 

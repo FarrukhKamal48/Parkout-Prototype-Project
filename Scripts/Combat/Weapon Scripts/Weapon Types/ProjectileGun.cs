@@ -29,6 +29,7 @@ public class ProjectileGun : Weapon
     private bool altADShold;
     private float aimSpeed;
     private float idleSpeed;
+    private float crouchSpeed;
 
     [SerializeField] private Transform attackPoint;
     // public Transform fpsCam;
@@ -90,6 +91,7 @@ public class ProjectileGun : Weapon
     // private variables
     float p_aim;
     float p_idle;
+    float p_crouch;
 
     void Awake()
     {
@@ -149,10 +151,14 @@ public class ProjectileGun : Weapon
         magSize = Settings.magSize;
         bulletsPerTap = Settings.bulletsPerTap;
         allowButtonHold = Settings.allowButtonHold;
+
         aimHold = Settings.aimHold;
         altADShold = Settings.altADShold;
+
         aimSpeed = Settings.aimSpeed;
         idleSpeed = Settings.idleSpeed;
+        crouchSpeed = Settings.crouchSpeed;
+
         normalAnimSpeed = Settings.normalAnimSpeed;
         shootAnimSpeed = Settings.shootAnimSpeed;
         reloadAnimSpeed = Settings.reloadAnimSpeed;
@@ -161,15 +167,30 @@ public class ProjectileGun : Weapon
     
     void resetCurveAnimFloats()
     {
-        if (_idle)
+        if (!_idle || _aiming || PlayerController.crouching)
+        {
+            p_idle = 0f;
+        }
+        
+        if (!_aiming)
         {
             p_aim = 0f;
         }
         
-        if (_aiming)
+        if (!PlayerController.crouching || _aiming)
         {
-            p_idle = 0f;
+            p_crouch = 0f;
         }
+    }
+    
+    float procAnimate(ref float p, float target, AnimationCurve animCurve, float multiplier)
+    {
+        p = Mathf.MoveTowards(p, target, Time.deltaTime);
+        float _animSpeed = multiplier * animCurve.Evaluate(p);
+		
+		_animSpeed = p>=target ? multiplier : _animSpeed;
+        
+        return _animSpeed;
     }
 
     public override void Animation()
@@ -180,10 +201,20 @@ public class ProjectileGun : Weapon
 
         if (_idle)
         {
-            // lerp to hip position
-            p_idle = Mathf.MoveTowards(p_idle, 1f, Time.deltaTime);
-            float _anim_speed = idleSpeed * Settings.AimSpeed.Evaluate(p_idle);
-            WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
+            if (!PlayerController.crouching)
+            {
+                // lerp to hip position
+                float _anim_speed = procAnimate(ref p_idle, 1f, Settings.AimSpeed, idleSpeed);
+                WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
+				print("idling");
+            }
+            else
+            {
+				// lerp to crouch position
+                float _anim_speed = procAnimate(ref p_crouch, 1f, Settings.CrouchSpeed, crouchSpeed);
+                WeaponAnimation.Animate(hipTransform, crouch, _anim_speed, WeaponAnimation.Animatemode._transform);
+				print("crouching");
+            }
 
             // set blend tree floats
             gunAnimator.SetFloat("Shoot Blend", Mathf.Lerp(gunAnimator.GetFloat("Shoot Blend"), 0.0f, shoot_Blend_speed * Time.deltaTime));
@@ -198,9 +229,9 @@ public class ProjectileGun : Weapon
         else if (_aiming)
         {
             // lerp to aim postion
-            p_aim = Mathf.MoveTowards(p_aim, 1f, Time.deltaTime);
-            float _anim_speed = aimSpeed * Settings.AimSpeed.Evaluate(p_aim);
+            float _anim_speed = procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
+			print("aiming");
 
             // if (_altADS)
             //     WeaponAnimation.Animate(adsRotator, t_altADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
