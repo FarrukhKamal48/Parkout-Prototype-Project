@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// using System.Collections;
+// using System.Collections.Generic;
 using UnityEngine;
 
 public class HeadBob : MonoBehaviour
@@ -12,16 +12,37 @@ public class HeadBob : MonoBehaviour
     [Header("HeadBob")]
     [SerializeField] private bool enableHeadbob = true;
 
-    public float toggleSpeed = 3f;
+    [Header("Base Settings")]
+    [SerializeField] private float toggleSpeed = 3f;
     [SerializeField, Range(0, 10f)] private float amplitude = 0.015f;
     [SerializeField, Range(0, 30f)] private float frequency = 10.3f;
+    [SerializeField] private float Ybump = 1f; 
+
+    [Space(5)]
+    [Header("Y postion frequency & amplitude")]
+    [Space(3)]
+    [SerializeField] private Vector2 yWalkFreqMultiplier;
+    [SerializeField] private Vector2 yAimFreqMultiplier;
+    [SerializeField] private Vector2 ySprintFreqMultiplier;
+    [SerializeField] private Vector2 yCrouchFreqMultiplier;
+
+    [Space(5)]
+    [Header("Rotaion Bob frequency & amplitude")]
+    [Space(3)]
     [SerializeField] private Vector2 frequencyMultiplier;
     [SerializeField] private Vector2 sprintFrequencyMultiplier;
     [SerializeField] private Vector2 aimFrequencyMultiplier;
     [SerializeField] private Vector2 crouchFrequencyMultiplier;
-    [SerializeField] private float Zrotation = 2f; 
-    [SerializeField] private float ZrotSmooth = 2f; 
-    [SerializeField] private float Ybump = 1f; 
+
+    [Space(5)]
+    [Header("Z tilt ammount & smoothing")]
+    [Space(3)]
+    // [SerializeField] private float _zRotandSmooth.x = 2f; 
+    // [SerializeField] private float _zRotandSmooth.y = 2f; 
+    [SerializeField] private Vector2 zWalkRotandSmooth;
+    [SerializeField] private Vector2 zAimRotandSmooth;
+    [SerializeField] private Vector2 zSprintRotandSmooth;
+    [SerializeField] private Vector2 zCrouchRotandSmooth;
 
 
     [Header("Jump Animation")]
@@ -32,17 +53,20 @@ public class HeadBob : MonoBehaviour
     [SerializeField] private float animationSmoothing = 1f;
 
     Vector2 _frequencyMultiplier;
-
+    Vector2 _yFreqMultiplier;
+    Vector2 _zRotandSmooth;
 
     private float _speed;
 
     private Quaternion startRot;
     private Vector3 startPos;
+    private Vector3 jumpAnimStartPos;
 
     void Awake()
     {
         startRot = jumpAnimTransform.localRotation;
-        startPos = jumpAnimTransform.localPosition;
+        startPos = cameraHolder.localPosition;
+        jumpAnimStartPos = jumpAnimTransform.localPosition;
     }
 
     void Update()
@@ -59,14 +83,14 @@ public class HeadBob : MonoBehaviour
         {
             landAnimation.p += Time.deltaTime * landAnimation.animationSpeed;
             //jumpAnimTransform.localPosition.y = Mathf.Lerp(jumpAnimTransform.localPosition.y, landDesyncHeight.Evaluate(p));
-            Vector3 targetPosition = new Vector3(startPos.x, startPos.y + (landAnimation.magnitude * landAnimation.AnimationMotionCurve.Evaluate(landAnimation.p)), startPos.z);
+            Vector3 targetPosition = new Vector3(jumpAnimStartPos.x, jumpAnimStartPos.y + (landAnimation.magnitude * landAnimation.AnimationMotionCurve.Evaluate(landAnimation.p)), jumpAnimStartPos.z);
             jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, targetPosition, animationSmoothing * Time.deltaTime);
 
             if (p >= landAnimation.animationLength) return;
         }
         else
         {
-            jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, startPos, returnSpeed * Time.deltaTime);
+            jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, jumpAnimStartPos, returnSpeed * Time.deltaTime);
         }
         if (controller._grounded == false)
         {
@@ -78,14 +102,14 @@ public class HeadBob : MonoBehaviour
         {
             jumpAnimation.p += Time.deltaTime * jumpAnimation.animationSpeed;
             //jumpAnimTransform.localPosition.y = Mathf.Lerp(jumpAnimTransform.localPosition.y, landDesyncHeight.Evaluate(p));
-            Vector3 targetPosition = new Vector3(startPos.x, startPos.y + (jumpAnimation.magnitude * jumpAnimation.AnimationMotionCurve.Evaluate(jumpAnimation.p)), startPos.z);
+            Vector3 targetPosition = new Vector3(jumpAnimStartPos.x, jumpAnimStartPos.y + (jumpAnimation.magnitude * jumpAnimation.AnimationMotionCurve.Evaluate(jumpAnimation.p)), jumpAnimStartPos.z);
             jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, targetPosition, animationSmoothing * Time.deltaTime);
 
             if (p >= jumpAnimation.animationLength) return;
         }
         else
         {
-            jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, startPos, returnSpeed * Time.deltaTime);
+            jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, jumpAnimStartPos, returnSpeed * Time.deltaTime);
         }
         if (controller._grounded == true)
         {
@@ -97,7 +121,7 @@ public class HeadBob : MonoBehaviour
     {
         landAnimation.p += Time.deltaTime * landAnimation.animationSpeed;
         //jumpAnimTransform.localPosition.y = Mathf.Lerp(jumpAnimTransform.localPosition.y, landDesyncHeight.Evaluate(p));
-        Vector3 targetPosition = new Vector3(startPos.x, startPos.y + (landAnimation.magnitude * landAnimation.AnimationMotionCurve.Evaluate(landAnimation.p)), startPos.z);
+        Vector3 targetPosition = new Vector3(jumpAnimStartPos.x, jumpAnimStartPos.y + (landAnimation.magnitude * landAnimation.AnimationMotionCurve.Evaluate(landAnimation.p)), jumpAnimStartPos.z);
         jumpAnimTransform.localPosition = Vector3.Lerp(jumpAnimTransform.localPosition, targetPosition, animationSmoothing * Time.deltaTime);
 
         if (p >= landAnimation.animationLength) return;
@@ -125,24 +149,41 @@ public class HeadBob : MonoBehaviour
         if (PlayerController.walking)
         {
             _frequencyMultiplier = frequencyMultiplier;
+            _yFreqMultiplier = yWalkFreqMultiplier;
+            _zRotandSmooth = zWalkRotandSmooth;
         }
         else if (PlayerController.Sprinting)
         {
             _frequencyMultiplier = sprintFrequencyMultiplier;
+            _yFreqMultiplier = ySprintFreqMultiplier;
+            _zRotandSmooth = zSprintRotandSmooth;
         }
         else if (PlayerController.aiming)
         {
             _frequencyMultiplier = aimFrequencyMultiplier;
+            _yFreqMultiplier = yAimFreqMultiplier;
+            _zRotandSmooth = zAimRotandSmooth;
         }
         else if (PlayerController.crouching)
         {
             _frequencyMultiplier = crouchFrequencyMultiplier;
+            _yFreqMultiplier = yCrouchFreqMultiplier;
+            _zRotandSmooth = zCrouchRotandSmooth;
         }
     }
 
     public void PlayMotion(Vector3 motion)
     {
         cameraHolder.localEulerAngles += motion;
+
+        Vector3 pos = new Vector3(
+            cameraHolder.localPosition.x,
+            cameraHolder.localPosition.y + Mathf.Sin(Time.time * _yFreqMultiplier.x * frequency) * _yFreqMultiplier.y * amplitude,
+            cameraHolder.localPosition.z
+        );
+        
+        cameraHolder.localPosition = pos;
+
     }
 
     void CheckMotion()
@@ -158,7 +199,7 @@ public class HeadBob : MonoBehaviour
         Vector3 pos = Vector3.zero;
         pos.x += (Mathf.Sin(Time.time * frequency * _frequencyMultiplier.x) * (amplitude * _frequencyMultiplier.y)) - (Ybump * amplitude * _frequencyMultiplier.y * (Mathf.Sin(frequency * _frequencyMultiplier.x * ((Time.time - (Mathf.PI/2f)) + 1))));
         pos.y += Mathf.Cos(Time.time * (frequency * _frequencyMultiplier.x) / 2f) * (amplitude * _frequencyMultiplier.y) * 2f;
-        pos.z = Mathf.Lerp(pos.z, -PlayerController.X * Zrotation, Time.deltaTime * ZrotSmooth);
+        pos.z = Mathf.Lerp(pos.z, -PlayerController.X * _zRotandSmooth.x, Time.deltaTime * _zRotandSmooth.y);
         // pos.z += Mathf.Sin(Time.time * (frequency * _frequencyMultiplier.x) / 2f) * (amplitude * _frequencyMultiplier.y) / 1.5f;
         return pos;
     }
@@ -167,6 +208,9 @@ public class HeadBob : MonoBehaviour
     {
         if (cameraHolder.localRotation != startRot)
             cameraHolder.localRotation = Quaternion.Slerp(cameraHolder.localRotation, startRot, 5 * Time.deltaTime);
+
+        if (cameraHolder.localPosition != startPos)
+            cameraHolder.localPosition = Vector3.Lerp(cameraHolder.localPosition, startPos, 5 * Time.deltaTime);
     }
 }
 
