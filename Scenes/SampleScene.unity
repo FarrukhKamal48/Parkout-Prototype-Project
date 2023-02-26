@@ -35066,7 +35066,7 @@ MonoBehaviour:
     m_Bits: 767
   maxRange: 50
   minMaxGrappleDist: {x: 0, y: 0.25}
-  spring: 6
+  spring: 10
   damper: 5
   massScale: 4.5
   grappleSpeedMultiplier: 0.02
@@ -35231,11 +35231,16 @@ MonoBehaviour:
     sourceTransform: {fileID: 1990946906}
     source: {fileID: 0}
     clips:
-    - {fileID: 8300000, guid: 78addde9a55a219cfb5e6786ec9d704e, type: 3}
+    - {fileID: 8300000, guid: e5951c1302df42526b2ed827c07c676f, type: 3}
+    - {fileID: 8300000, guid: 53b764dc042598fc5918c02dfb272029, type: 3}
+    - {fileID: 8300000, guid: 91c236c67886df9e48a5d4f581c4b5ed, type: 3}
+    - {fileID: 8300000, guid: e20bd2bac9c4699a098b83c930c17089, type: 3}
+    - {fileID: 8300000, guid: de36d6e50163485488ef52c1b0e126cb, type: 3}
+    - {fileID: 8300000, guid: 160752983e3e57debb1979ed4ee59a27, type: 3}
     playOnAwake: 0
     priority: 0
     spatialBlend: 1
-    volume: {x: 0.9, y: 1}
+    volume: {x: 0.5, y: 0.5}
     pitch: {x: 1, y: 1}
 --- !u!114 &2030525037
 MonoBehaviour:
