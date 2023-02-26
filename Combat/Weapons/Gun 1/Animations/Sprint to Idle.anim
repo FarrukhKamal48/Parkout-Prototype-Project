@@ -19,7 +19,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 14.878, y: -56.376, z: -33.295}
+        value: {x: 12.61, y: -31.405, z: 9.405002}
         inSlope: {x: -219.65204, y: 116.91087, z: 55.657234}
         outSlope: {x: -219.65204, y: 116.91087, z: 55.657234}
         tangentMode: 0
@@ -89,7 +89,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.198, y: -0.102, z: -0.475}
+        value: {x: -0.166, y: -0.179, z: -0.5}
         inSlope: {x: 0.029319352, y: 0.13990977, z: 2.0145614}
         outSlope: {x: 0.029319352, y: 0.13990977, z: 2.0145614}
         tangentMode: 0
@@ -241,7 +241,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.198
+        value: -0.166
         inSlope: 0.029319352
         outSlope: 0.029319352
         tangentMode: 0
@@ -270,7 +270,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.102
+        value: -0.179
         inSlope: 0.13990977
         outSlope: 0.13990977
         tangentMode: 0
@@ -299,7 +299,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.475
+        value: -0.5
         inSlope: 2.0145614
         outSlope: 2.0145614
         tangentMode: 0
@@ -328,7 +328,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 14.878
+        value: 12.61
         inSlope: -219.65204
         outSlope: -219.65204
         tangentMode: 0
@@ -357,7 +357,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -56.376
+        value: -31.405
         inSlope: 116.91087
         outSlope: 116.91087
         tangentMode: 0
@@ -386,7 +386,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -33.295
+        value: 9.405002
         inSlope: 55.657234
         outSlope: 55.657234
         tangentMode: 0
@@ -738,9 +738,9 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
+    attribute: m_LocalEulerAngles.z
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -751,7 +751,7 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -760,9 +760,9 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
+    attribute: m_LocalEulerAngles.x
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -806,7 +806,7 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
+      (Animation:Animator)
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -817,7 +817,7 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
+      (Animation:Animator)
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -828,7 +828,7 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
+      (Animation:Animator)
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

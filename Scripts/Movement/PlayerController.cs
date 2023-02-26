@@ -75,10 +75,10 @@ public class PlayerController : MonoBehaviour
     public float speedOnHorizontalPlane;
 
     // debug in inspecter
-    public bool _grounded, _readytojump, _airborne, _aimWalking, _walking, _sprinting, _Sprinting, _aiming, _crouching, _sliding, _grappling;
+    public bool _grounded, _readytojump, _airborne, _aimWalking, _crouchWalking, _walking, _sprinting, _Sprinting, _aiming, _crouching, _sliding, _grappling;
 
     // for access by other scripts
-    public static bool grounded, readytojump, airborne, aimWalking, walking, sprinting, Sprinting, aiming, crouching, sliding, grappling;
+    public static bool grounded, readytojump, airborne, aimWalking, crouchWalking, walking, sprinting, Sprinting, aiming, crouching, sliding, grappling;
 
     bool isSliding;
     public static float grapplemultiplier = 0.05f;
@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour
         airborne = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && aiming == false && Sprinting == false && crouching == false && grounded == false;
 
         aimWalking = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && aiming == true && Sprinting == false && crouching == false && grounded == true;
+        crouchWalking = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && aiming == false && Sprinting == false && crouching == true && grounded == true;
 
         if (ProjectileGun.aiming == true)
         {
@@ -204,7 +205,7 @@ public class PlayerController : MonoBehaviour
             _multiplier = sprintMultiplier;
             _drag = grounddrag;
         }
-        else if (PlayerController.aiming)
+        else if (PlayerController.aimWalking)
         {
             _multiplier = aimMultiplier;
             _drag = grounddrag;
@@ -436,6 +437,7 @@ public class PlayerController : MonoBehaviour
         _readytojump = PlayerController.readytojump;
         _airborne = PlayerController.airborne;
         _aimWalking = PlayerController.aimWalking;
+        _crouchWalking = PlayerController.crouchWalking;
         _walking = PlayerController.walking;
         _sprinting = PlayerController.sprinting;
         _Sprinting = PlayerController.Sprinting;

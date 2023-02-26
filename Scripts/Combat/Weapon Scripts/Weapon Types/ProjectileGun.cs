@@ -222,9 +222,11 @@ public class ProjectileGun : Weapon
 
             // blend walking animations
             if (PlayerController.walking == true)
+                gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 2f, idle_Blend_speed * Time.deltaTime));
+            else if (PlayerController.crouchWalking == true)
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 1f, idle_Blend_speed * Time.deltaTime));
             else
-                gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 0.0f, idle_Blend_speed * Time.deltaTime));
+                gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 0f, idle_Blend_speed * Time.deltaTime));
         }
         else if (_aiming)
         {
