@@ -27,7 +27,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.43251544, y: 0.5852818, z: 0.5337424}
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: {x: 12.61, y: -31.405, z: 9.405002}
         inSlope: {x: 219.65204, y: -116.91087, z: -55.657234}
         outSlope: {x: 219.65204, y: -116.91087, z: -55.657234}
@@ -53,7 +53,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: {x: 0, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -97,7 +97,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.8656933, y: 0.49250305, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: {x: -0.166, y: -0.179, z: -0.5}
         inSlope: {x: -0.029319352, y: -0.13990977, z: -2.0145614}
         outSlope: {x: -0.029319352, y: -0.13990977, z: -2.0145614}
@@ -123,7 +123,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.82959616, y: 0.33333334, z: 0.17488784}
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: {x: 0.273, y: -0.612, z: -0.072}
         inSlope: {x: -19.619432, y: 0, z: 6.537256}
         outSlope: {x: -19.619432, y: 0, z: 6.537256}
@@ -149,7 +149,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.69955134, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: {x: 0.303, y: -0.548, z: -1.064}
         inSlope: {x: 0.0035192207, y: 0, z: 0}
         outSlope: {x: 0.0035192207, y: 0, z: 0}
@@ -220,7 +220,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0.41666666
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -249,7 +249,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.8656933
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.166
         inSlope: -0.029319352
         outSlope: -0.029319352
@@ -278,7 +278,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.49250305
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.179
         inSlope: -0.13990977
         outSlope: -0.13990977
@@ -307,7 +307,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.5
         inSlope: -2.0145614
         outSlope: -2.0145614
@@ -336,7 +336,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.43251544
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 12.61
         inSlope: 219.65204
         outSlope: 219.65204
@@ -365,7 +365,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.5852818
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -31.405
         inSlope: -116.91087
         outSlope: -116.91087
@@ -394,7 +394,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.5337424
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 9.405002
         inSlope: -55.657234
         outSlope: -55.657234
@@ -423,7 +423,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.82959616
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 0.273
         inSlope: -19.619432
         outSlope: -19.619432
@@ -452,7 +452,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.612
         inSlope: 0
         outSlope: 0
@@ -481,7 +481,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.17488784
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.072
         inSlope: 6.537256
         outSlope: 6.537256
@@ -510,7 +510,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -539,7 +539,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -568,7 +568,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 0
         inSlope: 0
         outSlope: 0
@@ -597,7 +597,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.69955134
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: 0.303
         inSlope: 0.0035192207
         outSlope: 0.0035192207
@@ -626,7 +626,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -0.548
         inSlope: 0
         outSlope: 0
@@ -655,7 +655,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.41666666
         value: -1.064
         inSlope: 0
         outSlope: 0
@@ -740,72 +740,6 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.y
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
-    classID: 4
-    script: {fileID: 0}
-  - curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
       (Animation:Animator)
     classID: 4
     script: {fileID: 0}
@@ -816,6 +750,17 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
       (Animation:Animator)
     classID: 4
@@ -828,7 +773,62 @@ AnimationClip:
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
     path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
-      (Animation:Animator)
+      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)/Arm IK targets/Left Arm IK/Left Arm IK_hint
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.x
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.y
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
+    classID: 4
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalEulerAngles.z
+    path: Anchor (Animation:Script)/RecoilPoint/SwayPoint/ADSRotator/Animator/Design/Grapics
+      (Animation:Animator)/Arm IK targets/Right Arm IK/Right Arm IK_hint
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

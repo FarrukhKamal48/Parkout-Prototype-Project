@@ -298,6 +298,26 @@ MonoBehaviour:
     spatialBlend: 1
     volume: {x: 0.6, y: 0.8}
     pitch: {x: 0.8, y: 1}
+  - Name: Aim_In
+    sourceTransform: {fileID: 2162454106567545906}
+    source: {fileID: 0}
+    clips:
+    - {fileID: 8300000, guid: 50786f8264d0b3f8692d3c09c7fbcdea, type: 3}
+    playOnAwake: 0
+    priority: 25
+    spatialBlend: 1
+    volume: {x: 1, y: 1}
+    pitch: {x: 1, y: 1}
+  - Name: Aim_Out
+    sourceTransform: {fileID: 2162454106567545906}
+    source: {fileID: 0}
+    clips:
+    - {fileID: 8300000, guid: 2e25274db3b2d7095a110c235335f35c, type: 3}
+    playOnAwake: 0
+    priority: 25
+    spatialBlend: 1
+    volume: {x: 1, y: 1}
+    pitch: {x: 1, y: 1}
 --- !u!95 &8971585639736341287
 Animator:
   serializedVersion: 4

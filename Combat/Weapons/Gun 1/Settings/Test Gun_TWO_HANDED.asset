@@ -35,8 +35,8 @@ MonoBehaviour:
   aimRecoilRotation: {x: -4.5, y: 2, z: 0.2}
   snapiness: 15
   returnSpeed: 6
-  aimSpeed: 10
-  idleSpeed: 10
+  aimSpeed: 15
+  idleSpeed: 15
   crouchSpeed: 10
   AimSpeed:
     serializedVersion: 2
