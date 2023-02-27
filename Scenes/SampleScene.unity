@@ -35240,7 +35240,7 @@ MonoBehaviour:
     playOnAwake: 0
     priority: 0
     spatialBlend: 1
-    volume: {x: 0.5, y: 0.5}
+    volume: {x: 0.4, y: 0.4}
     pitch: {x: 1, y: 1}
 --- !u!114 &2030525037
 MonoBehaviour:
