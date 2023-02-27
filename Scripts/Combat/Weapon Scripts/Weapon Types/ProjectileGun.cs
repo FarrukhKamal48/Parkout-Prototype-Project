@@ -107,6 +107,7 @@ public class ProjectileGun : Weapon
         SetupSettings();
 
         Animation();
+        manageSounds();
 
         MyInput();
         
@@ -192,6 +193,14 @@ public class ProjectileGun : Weapon
         
         return _animSpeed;
     }
+    
+    void manageSounds() {
+        
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            audioManager.PlaySound("Aim_In");
+        if (Input.GetKeyUp(KeyCode.Mouse1))
+            audioManager.PlaySound("Aim_Out");
+    }
 
     public override void Animation()
     {
@@ -233,6 +242,7 @@ public class ProjectileGun : Weapon
             // lerp to aim postion
             float _anim_speed = procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
+            
 			print("aiming");
 
             // if (_altADS)

@@ -42,14 +42,12 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-    public void PlaySound(string name, float volume)
-    {
+    public void PlaySound(string name, float volume) {
         Sound s = Array.Find(sounds, sound => sound.Name == name);
         s.source.Stop();
         s.source.clip = s.clips[UnityEngine.Random.Range(0, s.clips.Length)];
 
-        float volumeRange = s.volume.y - s.volume.x;
-        s.source.volume = UnityEngine.Random.Range(volume - volumeRange/2f, volume + volumeRange/2f);
+        s.source.volume = UnityEngine.Random.Range(s.volume.x, s.volume.y) * volume;
 
         s.source.pitch = UnityEngine.Random.Range(s.pitch.x, s.pitch.y);
 
@@ -61,4 +59,5 @@ public class AudioManager : MonoBehaviour
 
         s.source.Play();
     }
+
 }
