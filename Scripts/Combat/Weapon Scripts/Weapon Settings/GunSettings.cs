@@ -24,11 +24,13 @@ public class GunSettings : ScriptableObject
     [Header("Shoot Settings")]
     public float fireRate;
     public float shootWarmUp;
+    public float sprintToFireDelay = 1f;
     public float spread;
     public float reloadTime;
     public float timeBetweenShots;
     public int magSize;
     public int bulletsPerTap;
+    public float switchDuration = 1f;
     public bool allowButtonHold;
 
 

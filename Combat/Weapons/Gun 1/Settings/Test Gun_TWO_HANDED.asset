@@ -21,6 +21,7 @@ MonoBehaviour:
   upwardForce: 0
   fireRate: 0.3
   shootWarmUp: 0
+  sprintToFireDelay: 0.35
   spread: 0
   reloadTime: 1.5
   timeBetweenShots: 0

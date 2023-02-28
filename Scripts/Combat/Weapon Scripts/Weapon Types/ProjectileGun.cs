@@ -22,7 +22,7 @@ public class ProjectileGun : Weapon
     private float shootForce;
     private float upwardForce;
     //Gun
-    private float fireRate, shootWarmUp, spread, reloadTime, timeBetweenShots;
+    private float fireRate, shootWarmUp, sprintToFireDelay, spread, reloadTime, timeBetweenShots;
     private int magSize, bulletsPerTap;
     private bool allowButtonHold;
     private bool aimHold;
@@ -81,6 +81,8 @@ public class ProjectileGun : Weapon
 
     //bools
     private bool _isOneHanded;
+    
+    private bool isSprintShootDelay = false;
 
     bool _idle, _aiming, _altADS, _shooting, _readyToShoot, _reloading;
 
@@ -110,6 +112,7 @@ public class ProjectileGun : Weapon
         manageSounds();
 
         MyInput();
+        HandleShootDelay();
         
         // debug stuff
 
@@ -146,6 +149,7 @@ public class ProjectileGun : Weapon
         upwardForce = Settings.upwardForce;
         fireRate = Settings.fireRate;
         shootWarmUp = Settings.shootWarmUp;
+        sprintToFireDelay = Settings.sprintToFireDelay;
         spread = Settings.spread;
         reloadTime = Settings.reloadTime;
         timeBetweenShots = Settings.timeBetweenShots;
@@ -215,14 +219,12 @@ public class ProjectileGun : Weapon
                 // lerp to hip position
                 float _anim_speed = procAnimate(ref p_idle, 1f, Settings.AimSpeed, idleSpeed);
                 WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
-				print("idling");
             }
             else
             {
 				// lerp to crouch position
                 float _anim_speed = procAnimate(ref p_crouch, 1f, Settings.CrouchSpeed, crouchSpeed);
                 WeaponAnimation.Animate(hipTransform, crouch, _anim_speed, WeaponAnimation.Animatemode._transform);
-				print("crouching");
             }
 
             // set blend tree floats
@@ -236,6 +238,7 @@ public class ProjectileGun : Weapon
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 1f, idle_Blend_speed * Time.deltaTime));
             else
                 gunAnimator.SetFloat("Idle Blend", Mathf.Lerp(gunAnimator.GetFloat("Idle Blend"), 0f, idle_Blend_speed * Time.deltaTime));
+
         }
         else if (_aiming)
         {
@@ -243,8 +246,6 @@ public class ProjectileGun : Weapon
             float _anim_speed = procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
             
-			print("aiming");
-
             // if (_altADS)
             //     WeaponAnimation.Animate(adsRotator, t_altADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
             // else
@@ -276,8 +277,8 @@ public class ProjectileGun : Weapon
         gunAnimator.SetBool("Sprinting", PlayerController.Sprinting);
     }
 
-    public override void MyInput()
-    {
+    public override void MyInput() { 
+        
         // setting up the bools for aim, _shooting, _idle
         if (aimHold && !isOneHanded) _aiming = Input.GetKey(KeyCode.Mouse1);
         else if (Input.GetKeyDown(KeyCode.Mouse1) && !isOneHanded) _aiming = !_aiming;
@@ -298,10 +299,11 @@ public class ProjectileGun : Weapon
 
         if (_readyToShoot && _shooting && _reloading == false && bulletsLeft <= 0) Reload();
 
-        if (_shooting && _reloading == false)
+        if (_shooting && _reloading == false && isSprintShootDelay == false)
             warmUpShoot();
         else
             elapsedWarmUp = 0f;
+
     }
     
     float elapsedWarmUp;
@@ -312,18 +314,35 @@ public class ProjectileGun : Weapon
             elapsedWarmUp += Time.deltaTime;
             Debug.Log("Warming");
         }
-        else
+        else if (_readyToShoot && bulletsLeft > 0) 
         {
-            Debug.Log("Complete");
-            if (_readyToShoot && bulletsLeft > 0)
-            {
-                bulletsShot = 0;
-                Shoot();
-                shootEffects(); // so effects like particles and sound run once
-            }
+            bulletsShot = 0;
+            Shoot();
+            shootEffects(); // so effects like particles and sound run once
         }
     }
     
+    void HandleShootDelay() {
+
+        // sprint to shoot delay
+        if (PlayerController.Sprinting == true) {
+            timer_sprintShoot = 0f;
+            isSprintShootDelay = true;
+        } 
+        if (PlayerController.Sprinting == false) stopSprintShootDelay();
+        
+        // weapon switching delay
+         
+    }
+
+    float timer_sprintShoot = 0f;
+    void stopSprintShootDelay() {
+
+        if (timer_sprintShoot < sprintToFireDelay) timer_sprintShoot += Time.deltaTime;
+        if (timer_sprintShoot >= sprintToFireDelay) isSprintShootDelay = false;
+
+    } 
+     
     void shootEffects()
     {
         // creating the muzzleFlash

@@ -16,34 +16,29 @@ public class GunManager : MonoBehaviour
     [SerializeField] private float pickUpRange;
     [SerializeField] private int maxSlot;
 
+    [Header("Info")]
     public int weaponsInSlot;
-    private bool slotFull;
+    public bool slotFull;
+    public bool switchingWeapon = false;
     public int selectedIndex = 0;
 
     Transform currentGun_t;
     public static Weapon currentgun;
+    public static Weapon prevgun;
+    
+    float selectionDuration;
+    float selectionTimer;
 
     void Start()
     {
-        // if (weapons.Count != 0)
-        // {
-        //     weaponsInSlot++;
-        //
-        //     GameObject itemobj = Instantiate(weapons[selectedIndex].gameObject);
-        //     itemobj.transform.SetParent(weaponHolder);
-        //     itemobj.transform.localEulerAngles = Vector3.zero;
-        //     itemobj.transform.localPosition = new Vector3(0.389999986f, -0.159999996f, 0.600000024f);
-        //
-        //     ProjectileGun gunScript = itemobj.GetComponent<ProjectileGun>();
-        //     gunScript.fpsCam = weaponHolder;
-        //
-        //     //currentGun_t = weapons[selectedIndex];
-        //     //currentgun = currentGun_t.GetComponent<ProjectileGun>();
-        //     //currentgun.gunManager = this;
-        // }
+
+        prevgun = weapons[selectedIndex].GetComponent<Weapon>();
+        prevgun.gunManager = this;
+        
         Equip(weapons);
 
         SelectWeapon();
+
     }
 
     void Update()
@@ -80,6 +75,11 @@ public class GunManager : MonoBehaviour
 
         int prevSelectIndex = selectedIndex;
 
+        prevgun = weapons[prevSelectIndex].GetComponent<Weapon>();
+        selectionDuration = prevgun.thisGun.Settings.switchDuration + 
+            prevgun.thisGun.Settings.switchDuration; 
+
+
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             if (selectedIndex >= weaponsInSlot - 1)
@@ -104,7 +104,7 @@ public class GunManager : MonoBehaviour
 
     void SelectWeapon()
     {
-
+        
         int i = 0;
         foreach (Transform _weapon in weapons)
         {
@@ -121,10 +121,29 @@ public class GunManager : MonoBehaviour
             _weapon.GetComponent<Weapon>().gunManager = this;
         }
 
+        // set current gun script
         currentGun_t = weapons[selectedIndex];
         currentgun = currentGun_t.GetComponent<Weapon>();
         currentgun.gunManager = this;
+
+        // to set whether the player is switching a weapon
+        SelectionDelay();
         
+    }
+    
+    void SelectionDelay () {
+
+        selectionTimer = 0f;
+
+        GunSettings prevSettings = prevgun.thisGun.Settings;
+        GunSettings currentSettings = currentgun.thisGun.Settings;
+
+        while (selectionTimer < selectionDuration) {
+            selectionTimer += Time.deltaTime;
+            switchingWeapon = true;
+        }
+        
+        if (selectionTimer >= selectionDuration) switchingWeapon = false;
     }
 
     void Equip(GameObject weapon)
