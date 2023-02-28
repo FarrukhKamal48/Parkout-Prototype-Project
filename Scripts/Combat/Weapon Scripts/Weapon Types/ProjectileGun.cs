@@ -299,7 +299,7 @@ public class ProjectileGun : Weapon
 
         if (_readyToShoot && _shooting && _reloading == false && bulletsLeft <= 0) Reload();
 
-        if (_shooting && _reloading == false && isSprintShootDelay == false)
+        if (_shooting && _reloading == false && isSprintShootDelay == false && gunManager.switchingWeapon == false)
             warmUpShoot();
         else
             elapsedWarmUp = 0f;

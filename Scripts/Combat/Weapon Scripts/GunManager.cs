@@ -26,8 +26,9 @@ public class GunManager : MonoBehaviour
     public static Weapon currentgun;
     public static Weapon prevgun;
     
+    int prevSelectIndex;
+    
     float selectionDuration;
-    float selectionTimer;
 
     void Start()
     {
@@ -73,7 +74,7 @@ public class GunManager : MonoBehaviour
 
         // input
 
-        int prevSelectIndex = selectedIndex;
+        prevSelectIndex = selectedIndex;
 
         prevgun = weapons[prevSelectIndex].GetComponent<Weapon>();
         selectionDuration = prevgun.thisGun.Settings.switchDuration + 
@@ -127,23 +128,21 @@ public class GunManager : MonoBehaviour
         currentgun.gunManager = this;
 
         // to set whether the player is switching a weapon
-        SelectionDelay();
+        StartCoroutine(SelectionDelay());
         
     }
     
-    void SelectionDelay () {
-
-        selectionTimer = 0f;
+    IEnumerator SelectionDelay () {
 
         GunSettings prevSettings = prevgun.thisGun.Settings;
         GunSettings currentSettings = currentgun.thisGun.Settings;
-
-        while (selectionTimer < selectionDuration) {
-            selectionTimer += Time.deltaTime;
-            switchingWeapon = true;
-        }
         
-        if (selectionTimer >= selectionDuration) switchingWeapon = false;
+        switchingWeapon = true;
+        
+        yield return new WaitForSeconds(selectionDuration);
+
+        switchingWeapon = false;
+
     }
 
     void Equip(GameObject weapon)
