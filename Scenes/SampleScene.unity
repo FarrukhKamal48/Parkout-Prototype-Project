@@ -32375,7 +32375,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25162
+  m_Name: pb_Mesh141690
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34890,6 +34890,9 @@ MonoBehaviour:
   pickUpRange: 50
   maxSlot: 3
   weaponsInSlot: 0
+  slotFull: 0
+  switchingOut: 0
+  switchingIn: 0
   selectedIndex: 0
 --- !u!114 &2030525031
 MonoBehaviour:
@@ -35240,7 +35243,7 @@ MonoBehaviour:
     playOnAwake: 0
     priority: 0
     spatialBlend: 1
-    volume: {x: 0.4, y: 0.4}
+    volume: {x: 1, y: 1}
     pitch: {x: 1, y: 1}
 --- !u!114 &2030525037
 MonoBehaviour:
