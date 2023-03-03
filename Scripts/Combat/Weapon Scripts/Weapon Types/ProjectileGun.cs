@@ -271,6 +271,7 @@ public class ProjectileGun : Weapon
         
 
         // setting animator parameters
+        gunAnimator.SetBool("Switching", gunManager.switchingOut);
         gunAnimator.SetBool("Aiming", _aiming);
         gunAnimator.SetBool("Shooting", !_readyToShoot);
         gunAnimator.SetBool("Reloading", _reloading);
@@ -299,7 +300,7 @@ public class ProjectileGun : Weapon
 
         if (_readyToShoot && _shooting && _reloading == false && bulletsLeft <= 0) Reload();
 
-        if (_shooting && _reloading == false && isSprintShootDelay == false && gunManager.switchingWeapon == false)
+        if (_shooting && _reloading == false && isSprintShootDelay == false && gunManager.switchingIn == false)
             warmUpShoot();
         else
             elapsedWarmUp = 0f;
@@ -427,5 +428,11 @@ public class ProjectileGun : Weapon
     {
         bulletsLeft = magSize;
         _reloading = false;
+    }
+    
+    void OnDisable() {
+
+        gunAnimator.SetBool("Switching", false);
+
     }
 }

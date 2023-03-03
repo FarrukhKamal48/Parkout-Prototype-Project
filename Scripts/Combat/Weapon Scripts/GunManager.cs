@@ -19,7 +19,8 @@ public class GunManager : MonoBehaviour
     [Header("Info")]
     public int weaponsInSlot;
     public bool slotFull;
-    public bool switchingWeapon = false;
+    public bool switchingOut = false;
+    public bool switchingIn = false;
     public int selectedIndex = 0;
 
     Transform currentGun_t;
@@ -132,16 +133,28 @@ public class GunManager : MonoBehaviour
         
     }
     
-    IEnumerator SelectionDelay () {
+    IEnumerator SelectionDelay() {
 
-        GunSettings prevSettings = prevgun.thisGun.Settings;
-        GunSettings currentSettings = currentgun.thisGun.Settings;
+        switchingOut = true;
+        switchingIn = false;
         
-        switchingWeapon = true;
+        yield return new WaitForSeconds(prevgun.thisGun.Settings.switchDuration);
         
-        yield return new WaitForSeconds(selectionDuration);
+        switchingOut = false;
+        switchingIn = true;
+        
+        yield return new WaitForSeconds(currentgun.thisGun.Settings.switchDuration);
 
-        switchingWeapon = false;
+        switchingOut = false;
+        switchingIn = false;
+
+    }
+    
+    IEnumerator DelaySwitch(int prevIndex, int currentIndex) {
+
+        yield return new WaitForSeconds(prevgun.thisGun.Settings.switchDuration);
+        weapons[prevIndex].gameObject.SetActive(false);
+        weapons[currentIndex].gameObject.SetActive(true);
 
     }
 
