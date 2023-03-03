@@ -27,6 +27,7 @@ MonoBehaviour:
   timeBetweenShots: 0
   magSize: 10
   bulletsPerTap: 1
+  switchDuration: 0.5
   allowButtonHold: 1
   aimHold: 1
   altADShold: 0
