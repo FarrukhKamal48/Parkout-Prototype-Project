@@ -26630,6 +26630,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  allowFootstep: 1
   walkStepFrequency: 0.05
   aimStepFrequency: 0.05
   sprintStepFrequency: 0.05
@@ -32375,7 +32376,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh141690
+  m_Name: pb_Mesh25164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -34984,36 +34985,36 @@ MonoBehaviour:
       m_Curve:
       - serializedVersion: 3
         time: -0.0010986328
-        value: 0.0011970615
-        inSlope: -0.028742922
-        outSlope: -0.028742922
+        value: -0.0011978149
+        inSlope: 0.028742922
+        outSlope: 0.028742922
         tangentMode: 0
         weightedMode: 3
         inWeight: 0
         outWeight: 0.14223562
       - serializedVersion: 3
         time: 0.014588002
-        value: 0.007950784
-        inSlope: 2.8414235
-        outSlope: 2.8414235
+        value: -0.007955788
+        inSlope: -2.8414235
+        outSlope: -2.8414235
         tangentMode: 0
         weightedMode: 3
         inWeight: 0.12881058
         outWeight: 0.08715917
       - serializedVersion: 3
-        time: 0.46
-        value: 0.2
-        inSlope: -0.015595782
-        outSlope: -0.015595782
+        time: 0.37743637
+        value: -0.2
+        inSlope: 0.02874675
+        outSlope: 0.02874675
         tangentMode: 0
         weightedMode: 3
-        inWeight: 0.81763077
+        inWeight: 0.20473382
         outWeight: 0.30249828
       - serializedVersion: 3
         time: 1.5
         value: 0
-        inSlope: -0
-        outSlope: -0
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -35146,6 +35147,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  allowFootstep: 1
   walkStepFrequency: 0.3
   aimStepFrequency: 0.5
   sprintStepFrequency: 0.2

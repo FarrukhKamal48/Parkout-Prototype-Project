@@ -21,12 +21,21 @@ public class WeaponAnimation : MonoBehaviour
         return 0.001f + traveledDist / targetDist;
     }
 
-    public static float procAnimate(ref float p, float target, AnimationCurve animCurve, float multiplier)
+    public static float procAnimate(ref float p, float target, AnimationCurve animCurve, float multiplier, float increment)
     {
-        p = multiplier * Mathf.MoveTowards(p, target, Time.deltaTime);
-        float _animSpeed = animCurve.Evaluate(p);
+        // p = multiplier * Mathf.MoveTowards(p, target, Time.deltaTime);
+        // float _animSpeed = animCurve.Evaluate(p);
 		
-		_animSpeed = p>=target ? multiplier : _animSpeed;
+		// _animSpeed = p>=target ? multiplier : _animSpeed;
+        
+        // return _animSpeed;
+
+        p += Time.deltaTime * increment;
+        p = Mathf.Clamp(p, 0f, target);
+
+        float _animSpeed = animCurve.Evaluate(p) * multiplier;
+		
+		// _animSpeed = animCurve.Evaluate(p) >= target ? multiplier : _animSpeed;
         
         return _animSpeed;
     }
