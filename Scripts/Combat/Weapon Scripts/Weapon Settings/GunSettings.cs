@@ -60,6 +60,8 @@ public class GunSettings : ScriptableObject
     public AnimationCurve AimSpeed;
     public AnimationCurve CrouchSpeed;
 
+    public CurveAnimationVector3 aimAnim;
+
     public float normalAnimSpeed; 
     public float shootAnimSpeed; 
     public float reloadAnimSpeed; 

@@ -37,9 +37,9 @@ MonoBehaviour:
   aimRecoilRotation: {x: -4.5, y: 2, z: 0.2}
   snapiness: 15
   returnSpeed: 6
-  aimSpeed: 15
-  idleSpeed: 15
-  crouchSpeed: 10
+  aimSpeed: 7
+  idleSpeed: 7
+  crouchSpeed: 7
   AimSpeed:
     serializedVersion: 2
     m_Curve:
@@ -106,6 +106,171 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  aimAnim:
+    posX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    posY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.0015258789
+        inSlope: 0.27970934
+        outSlope: 0.27970934
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.27889055
+        value: 0.999451
+        inSlope: 0.111581646
+        outSlope: 0.111581646
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 1
+        outWeight: 0.47029638
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0.049005494
+        outSlope: 0.049005494
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.44042775
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    posZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.0015258789
+        inSlope: 0.27970934
+        outSlope: 0.27970934
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.27889055
+        value: 0.999451
+        inSlope: 0.111581646
+        outSlope: 0.111581646
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 1
+        outWeight: 0.47029638
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0.049005494
+        outSlope: 0.049005494
+        tangentMode: 0
+        weightedMode: 3
+        inWeight: 0.44042775
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rotX:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rotY:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    rotZ:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 1
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    p: 0
+    speed: 15
   normalAnimSpeed: 1
   shootAnimSpeed: 1
   reloadAnimSpeed: 1

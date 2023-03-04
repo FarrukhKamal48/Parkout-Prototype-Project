@@ -180,6 +180,7 @@ public class ProjectileGun : Weapon
         if (!_aiming)
         {
             p_aim = 0f;
+            Settings.aimAnim.p = 0f;
         }
         
         if (!PlayerController.crouching || _aiming)
@@ -191,10 +192,14 @@ public class ProjectileGun : Weapon
     
     void manageSounds() {
         
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1)) {
             audioManager.PlaySound("Aim_In");
-        if (Input.GetKeyUp(KeyCode.Mouse1))
+            audioManager.StopSound("Aim_Out");
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse1)) {
+            audioManager.StopSound("Aim_In");
             audioManager.PlaySound("Aim_Out");
+        }
     }
 
     public override void Animation()
@@ -236,6 +241,10 @@ public class ProjectileGun : Weapon
             // lerp to aim postion
             float _anim_speed = WeaponAnimation.procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
+
+            // WeaponAnimation.Animate(hipTransform, hipTransform, ADS, 
+            //     ref Settings.aimAnim, WeaponAnimation.Animatemode._position);
+
             
             // if (_altADS)
             //     WeaponAnimation.Animate(adsRotator, t_altADS, aimSpeed, WeaponAnimation.Animatemode._rotation);
