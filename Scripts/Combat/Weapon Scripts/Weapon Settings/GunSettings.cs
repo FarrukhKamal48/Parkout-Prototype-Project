@@ -9,18 +9,18 @@ public class GunSettings : ScriptableObject
     public GameObject bullet;
     public GameObject muzzleFlash;
 
-    [Space(5)]
+    [Space(10)]
     [Header("Controls")]
     public KeyCode ReloadKey;
     public KeyCode altAdsKey;
 
-    [Space(5)]
+    [Space(10)]
     [Header("Bullet Force")]
     public float shootForce;
     public float upwardForce;
 
 
-    [Space(5)]
+    [Space(10)]
     [Header("Shoot Settings")]
     public float fireRate;
     public float shootWarmUp;
@@ -34,12 +34,12 @@ public class GunSettings : ScriptableObject
     public bool allowButtonHold;
 
 
-    [Space(5)]
+    [Space(10)]
     [Header("Aim Settings")]
     public bool aimHold;
     public bool altADShold;
 
-    [Space(5)]
+    [Space(10)]
     [Header("Recoil Settings")]
     public Vector3 recoilPosition;
     public Vector3 recoilRotation;
@@ -52,16 +52,20 @@ public class GunSettings : ScriptableObject
     public float snapiness;
     public float returnSpeed;
 
-    [Space(5)]
-    [Header("Animation Settings")]
-    public float aimSpeed;
-    public float idleSpeed;
-    public float crouchSpeed;
-    public AnimationCurve AimSpeed;
-    public AnimationCurve CrouchSpeed;
+    [Space(10)]
+    [Header("Animation Speed Curves")]
 
+    public CurveAnimation AimSpeed;
+
+    public CurveAnimation IdleSpeed;
+
+    public CurveAnimation CrouchSpeed;
+
+    [Header("Linear Animation")]
     public CurveAnimationVector3 aimAnim;
 
+    [Space(10)]
+    [Header("Animator Clip Playback Speeds")]
     public float normalAnimSpeed; 
     public float shootAnimSpeed; 
     public float reloadAnimSpeed; 
