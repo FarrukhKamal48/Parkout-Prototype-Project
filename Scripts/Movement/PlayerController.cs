@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
     [Header("Sounds")]
 
     [Header("FootSteps")]
+    [SerializeField] public bool allowFootstep = true;
     [SerializeField] private float walkStepFrequency = 0.05f;
     [SerializeField] private float aimStepFrequency = 0.05f;
     [SerializeField] private float sprintStepFrequency = 0.05f;
@@ -92,7 +93,6 @@ public class PlayerController : MonoBehaviour
     int _numJumps;
     float _stepFrequency;
 
-    private bool allowFootstep = true;
     float timeToStep;
 
 
@@ -326,6 +326,9 @@ public class PlayerController : MonoBehaviour
 
     void HandleFootSteps()
     {
+        if (!allowFootstep)
+            return;
+        
         if (_stepFrequency != 0f)
         {
             if (timeToStep > 0f) timeToStep -= Time.deltaTime;
