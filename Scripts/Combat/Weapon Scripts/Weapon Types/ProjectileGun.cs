@@ -188,15 +188,6 @@ public class ProjectileGun : Weapon
         }
     }
     
-    float procAnimate(ref float p, float target, AnimationCurve animCurve, float multiplier)
-    {
-        p = Mathf.MoveTowards(p, target, Time.deltaTime);
-        float _animSpeed = multiplier * animCurve.Evaluate(p);
-		
-		_animSpeed = p>=target ? multiplier : _animSpeed;
-        
-        return _animSpeed;
-    }
     
     void manageSounds() {
         
@@ -217,13 +208,13 @@ public class ProjectileGun : Weapon
             if (!PlayerController.crouching)
             {
                 // lerp to hip position
-                float _anim_speed = procAnimate(ref p_idle, 1f, Settings.AimSpeed, idleSpeed);
+                float _anim_speed = WeaponAnimation.procAnimate(ref p_idle, 1f, Settings.AimSpeed, idleSpeed);
                 WeaponAnimation.Animate(hipTransform, hip, _anim_speed, WeaponAnimation.Animatemode._transform);
             }
             else
             {
 				// lerp to crouch position
-                float _anim_speed = procAnimate(ref p_crouch, 1f, Settings.CrouchSpeed, crouchSpeed);
+                float _anim_speed = WeaponAnimation.procAnimate(ref p_crouch, 1f, Settings.CrouchSpeed, crouchSpeed);
                 WeaponAnimation.Animate(hipTransform, crouch, _anim_speed, WeaponAnimation.Animatemode._transform);
             }
 
@@ -243,7 +234,7 @@ public class ProjectileGun : Weapon
         else if (_aiming)
         {
             // lerp to aim postion
-            float _anim_speed = procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
+            float _anim_speed = WeaponAnimation.procAnimate(ref p_aim, 1f, Settings.AimSpeed, aimSpeed);
             WeaponAnimation.Animate(hipTransform, ADS, _anim_speed, WeaponAnimation.Animatemode._transform);
             
             // if (_altADS)

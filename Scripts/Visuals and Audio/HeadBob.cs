@@ -49,8 +49,8 @@ public class HeadBob : MonoBehaviour
 
 
     [Header("Jump Animation")]
-    [SerializeField] public JumpAnimation landAnimation;
-    [SerializeField] public JumpAnimation jumpAnimation;
+    [SerializeField] public CurveAnimation landAnimation;
+    [SerializeField] public CurveAnimation jumpAnimation;
 
     [SerializeField] private float returnSpeed = 1f;
     [SerializeField] private float animationSmoothing = 1f;
@@ -223,12 +223,3 @@ public class HeadBob : MonoBehaviour
     
 }
 
-[System.Serializable]
-public struct JumpAnimation
-{
-    public float animationLength;
-    public float magnitude;
-    public AnimationCurve AnimationMotionCurve;
-    public float animationSpeed;
-    public float p;
-}
