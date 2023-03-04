@@ -31,9 +31,12 @@ public class Item : MonoBehaviour
     
     public GameObject chooseItem()
     {
-        int randItem = Random.Range(0, items.Count-1);
-        item = items[randItem];
-        return item;
+        if (!isdestroying) {
+            int randItem = Random.Range(0, items.Count-1);
+            item = items[randItem];
+            return item;
+        }
+        return null;
     }
 
     void Update()

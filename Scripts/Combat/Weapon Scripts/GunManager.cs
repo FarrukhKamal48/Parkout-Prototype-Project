@@ -62,8 +62,12 @@ public class GunManager : MonoBehaviour
             if (slotFull == false && Input.GetKeyDown(equip) && hit.transform.GetComponent<Item>() != null)
             {
                 Item hitItem = hit.transform.GetComponent<Item>();
-                Equip(hitItem.chooseItem());
-                hitItem.remainingInstantiations--;
+                GameObject choosenItem = hitItem.chooseItem();
+
+                if (choosenItem != null) {
+                    Equip(choosenItem);
+                    hitItem.remainingInstantiations--;
+                }
             }
         }
 
