@@ -21,16 +21,25 @@ public class Grappling : MonoBehaviour
     [SerializeField] private float maxRange = 50f;
     [SerializeField] private Vector2 minMaxGrappleDist = new Vector2(0.8f, 0.25f);
     [SerializeField] private float spring = 4.5f;
+    [SerializeField] private float upwardForce = 4.5f;
     [SerializeField] private float damper = 7f;
     [SerializeField] private float massScale = 4.5f;
     [SerializeField] private float grappleSpeedMultiplier;
     [SerializeField] private float grappleDrag;
 
     private SpringJoint joint;
+    
+    private Rigidbody rb;
+    
+    private float distFromPoint, yDiff;
 
     private bool isGrappling, grappleInput;
 
     bool canGrapple;
+    
+    void Start() {
+        rb = Player.GetComponent<Rigidbody>();
+    }
 
     void Update()
     {
@@ -81,7 +90,8 @@ public class Grappling : MonoBehaviour
         joint.connectedAnchor = grapplePoint;
         joint.connectedBody = connectedBody;
 
-        float distFromPoint = Vector3.Distance(Player.position, grapplePoint);
+        distFromPoint = Vector3.Distance(Player.position, grapplePoint);
+        yDiff = grapplePoint.y - Player.position.y;
 
         joint.minDistance = distFromPoint * minMaxGrappleDist.x;
         joint.maxDistance = distFromPoint * minMaxGrappleDist.y;
@@ -116,8 +126,9 @@ public class Grappling : MonoBehaviour
 
 
             joint = Player.gameObject.AddComponent<SpringJoint>();
-
             ConfigureJoint(joint);
+
+            rb.AddForce(Player.up * upwardForce * distFromPoint/(yDiff > 0f ? yDiff: 1.0f), ForceMode.Impulse);
 
             lr.positionCount = 2;
         }
