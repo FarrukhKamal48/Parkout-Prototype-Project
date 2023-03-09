@@ -8,7 +8,7 @@ public class GunManager : MonoBehaviour
     [SerializeField] private ArmIKHandler iKHandler;
     
     [SerializeField] private Transform weaponHolder;
-    [SerializeField] private List<Transform> weapons = new List<Transform>();
+    [SerializeField] private List<GunSettings> weapons = new List<GunSettings>();
 
     [Header("WeaponEquip Settings")]
     [SerializeField] private KeyCode equip;
@@ -23,24 +23,35 @@ public class GunManager : MonoBehaviour
     public bool switchingIn = false;
     public int selectedIndex = 0;
 
-    Transform currentGun_t;
-    public static Weapon currentgun;
-    public static Weapon prevgun;
+    public static GunSettings currentgunSettings;
+    public static ProjectileGun currentgunScript;
+    public static GunSettings prevgunSettings;
+    
+    [Header("Scripts")]
+    public ProjectileGun gunScript;
+    public sway swayScript;
+    public WeaponReferences weaponRefs;
+    public RecoilScript cameraRecoil;
+
+    private Transform currentGunObject;
+    
     
     int prevSelectIndex;
     
     float selectionDuration;
 
-    void Start()
+    void Awake()
     {
+        currentgunScript = gunScript;
 
-        prevgun = weapons[selectedIndex].GetComponent<Weapon>();
-        prevgun.gunManager = this;
+        prevgunSettings = weapons[selectedIndex];
+        print("fuck");
         
         Equip(weapons);
 
         SelectWeapon();
 
+        weaponRefs = currentGunObject.GetComponent<WeaponReferences>();
     }
 
     void Update()
@@ -51,8 +62,8 @@ public class GunManager : MonoBehaviour
             //currentgun = currentGun_t.GetComponent<ProjectileGun>();
             //currentgun.gunManager = this;
         }
-
-        if (weaponsInSlot >= maxSlot) slotFull = true;
+        
+        if (weaponsInSlot == maxSlot) slotFull = true;
         else slotFull = false;
 
         RaycastHit hit;
@@ -62,7 +73,7 @@ public class GunManager : MonoBehaviour
             if (slotFull == false && Input.GetKeyDown(equip) && hit.transform.GetComponent<Item>() != null)
             {
                 Item hitItem = hit.transform.GetComponent<Item>();
-                GameObject choosenItem = hitItem.chooseItem();
+                GunSettings choosenItem = hitItem.chooseItem();
 
                 if (choosenItem != null) {
                     Equip(choosenItem);
@@ -73,7 +84,7 @@ public class GunManager : MonoBehaviour
 
         if (weaponsInSlot > 0 && Input.GetKeyDown(drop) && selectedIndex != 0)
         {
-            Drop(weapons[selectedIndex].gameObject);
+            Drop(weapons[selectedIndex]);
         }
 
 
@@ -81,59 +92,116 @@ public class GunManager : MonoBehaviour
 
         prevSelectIndex = selectedIndex;
 
-        prevgun = weapons[prevSelectIndex].GetComponent<Weapon>();
-        selectionDuration = prevgun.thisGun.Settings.switchDuration + 
-            prevgun.thisGun.Settings.switchDuration; 
+
+        prevgunSettings = weapons[prevSelectIndex];
+        selectionDuration = prevgunSettings.switchDuration + 
+            prevgunSettings.switchDuration; 
 
 
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
-            if (selectedIndex >= weaponsInSlot - 1)
+            if (selectedIndex == weaponsInSlot - 1)
                 selectedIndex = 0;
             else
                 selectedIndex++;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            if (selectedIndex <= 0)
+            if (selectedIndex == 0)
                 selectedIndex = weaponsInSlot - 1;
             else
                 selectedIndex--;
         }
+        
+        selectedIndex = Mathf.Clamp(selectedIndex, 0, weaponsInSlot - 1);
+        
+        UpdateScripts();
 
         if (prevSelectIndex != selectedIndex)
         {
             SelectWeapon();
-            iKHandler.updateTargets();
+            // iKHandler.updateTargets();
+        }
+    }
+    
+    void UpdateScripts() {
+
+        currentgunScript.twoHanded = currentgunSettings;
+        currentgunScript.weaponRefs = weaponRefs;
+        currentgunScript.gunAnimator = weaponRefs.transform.GetComponent<Animator>();
+        currentgunScript.audioManager = weaponRefs.transform.GetComponent<AudioManager>();
+        
+        cameraRecoil.gunSettings = currentgunSettings;
+        
+        swayScript.weaponRefs = weaponRefs;
+        swayScript.Settings = currentgunSettings;
+
+    }
+    
+    void HandleSwitchAnim(Transform prevGunObject) {
+        
+        // spawn the new gun
+        // disable all of its meshes
+        //
+        // set switching out of the previous gun to true
+        // wait for the switch duration of previous gun
+        // set switching out of the previous gun to false
+        //
+        // destroy the previous gun
+        //
+        // enable the current gun's meshes
+        //
+        // set switching in of the current gun to true
+        // wait for the switch duration of current gun
+        // set switching in of the current gun to false
+        
+        weaponRefs.SetActiveMeshes(false);
+        
+        switchingOut = true;
+        switchingIn = false;
+        
+        // destroy the previous gun object
+        if (prevGunObject != null) {
+            Destroy(prevGunObject.gameObject, prevgunSettings.switchDuration);
+        }
+        else {
+            switchingOut = false;
+            switchingIn = true;
         }
     }
 
     void SelectWeapon()
     {
+        Transform prevGunObject;
+        prevGunObject = currentGunObject;
+
+        // set current gun settings
+        currentgunSettings = weapons[selectedIndex];
         
-        int i = 0;
-        foreach (Transform _weapon in weapons)
-        {
-            if (i == selectedIndex)
-            {
-                _weapon.gameObject.SetActive(true);
-            }
-            else
-            {
-                _weapon.gameObject.SetActive(false);
-            }
-            i++;
+        // create the new gun object
+        GameObject loadedGunObject = Instantiate(currentgunSettings.weaponObject);
+        print("instantiate");
 
-            _weapon.GetComponent<Weapon>().gunManager = this;
+        loadedGunObject.transform.SetParent(weaponHolder);
+        loadedGunObject.transform.localEulerAngles = Vector3.zero;
+        loadedGunObject.transform.localPosition = currentgunSettings.weaponRefs.startPos;
+        loadedGunObject.name = currentgunSettings.name;
+        
+        currentGunObject = loadedGunObject.transform;
+        weaponRefs = currentGunObject.GetComponent<WeaponReferences>();
+        
+        // destroy the previous gun object
+        if (prevGunObject != null) {
+            Destroy(prevGunObject.gameObject);
         }
+        
+        // HandleSwitchAnim(prevGunObject);
+        
+        UpdateScripts();
 
-        // set current gun script
-        currentGun_t = weapons[selectedIndex];
-        currentgun = currentGun_t.GetComponent<Weapon>();
-        currentgun.gunManager = this;
 
         // to set whether the player is switching a weapon
-        StartCoroutine(SelectionDelay());
+        // StartCoroutine(SelectionDelay());
         
     }
     
@@ -142,70 +210,73 @@ public class GunManager : MonoBehaviour
         switchingOut = true;
         switchingIn = false;
         
-        yield return new WaitForSeconds(prevgun.thisGun.Settings.switchDuration);
+        yield return new WaitForSeconds(prevgunSettings.switchDuration);
         
         switchingOut = false;
         switchingIn = true;
         
-        yield return new WaitForSeconds(currentgun.thisGun.Settings.switchDuration);
+        yield return new WaitForSeconds(currentgunSettings.switchDuration);
 
         switchingOut = false;
         switchingIn = false;
 
     }
-    
-    IEnumerator DelaySwitch(int prevIndex, int currentIndex) {
 
-        yield return new WaitForSeconds(prevgun.thisGun.Settings.switchDuration);
-        weapons[prevIndex].gameObject.SetActive(false);
-        weapons[currentIndex].gameObject.SetActive(true);
-
-    }
-
-    void Equip(GameObject weapon)
+    void Equip(GunSettings weapon)
     {
         weaponsInSlot++;
 
-        GameObject loadedGun = Instantiate(weapon);
-        Weapon gunScript = loadedGun.GetComponent<Weapon>();
+        // GameObject loadedGunObject = Instantiate(weapon.weaponObject);
 
-        loadedGun.transform.SetParent(weaponHolder);
-        loadedGun.transform.localEulerAngles = Vector3.zero;
-        loadedGun.transform.localPosition = gunScript.startPos;
+        // loadedGunObject.transform.SetParent(weaponHolder);
+        // loadedGunObject.transform.localEulerAngles = Vector3.zero;
+        // loadedGunObject.transform.localPosition = weapon.weaponRefs.startPos;
 
-        gunScript.fpsCam = weaponHolder;
+        // weapon.fpsCam = weaponHolder;
 
-        weapons.Add(loadedGun.transform);
-
-        SelectWeapon();
+        // weapons.Add(loadedGun.transform);
+        weapons.Add(weapon);
     }
 
-    void Equip(List<Transform> _weapons)
+    void Equip(List<GunSettings> _weapons)
     {
         weaponsInSlot += _weapons.Count;
 
-        GameObject loadedGun = Instantiate(_weapons[selectedIndex].gameObject);
-        Weapon gunScript = loadedGun.GetComponent<Weapon>();
+        // GameObject loadedGunObject = Instantiate(_weapons[selectedIndex].weaponObject);
+        // WeaponReferences weaponRefs = _weapons[selectedIndex].weaponRefs;
 
-        loadedGun.transform.SetParent(weaponHolder);
-        loadedGun.transform.localEulerAngles = Vector3.zero;
-        loadedGun.transform.localPosition = gunScript.startPos;
+        // loadedGunObject.transform.SetParent(weaponHolder);
+        // loadedGunObject.transform.localEulerAngles = Vector3.zero;
+        // loadedGunObject.transform.localPosition = weaponRefs.startPos;
 
-        weapons[selectedIndex] = loadedGun.transform;
+        // currentgun.fpsCam = weaponHolder;
 
-        gunScript.fpsCam = weaponHolder;
+        // SelectWeapon();
+    }
+
+    void Drop(GunSettings weapon)
+    {
+        if (weaponsInSlot == 1)
+            return;
+
+        weaponsInSlot--;
+
+        selectedIndex = weaponsInSlot - 1;
+
+        Destroy(currentGunObject.gameObject);
+        weapons.Remove(weapon);
 
         SelectWeapon();
     }
+}
 
-    void Drop(GameObject weapon)
-    {
-        weaponsInSlot--;
-
-        Destroy(weapon);
-        weapons.Remove(weapon.transform);
-
-        selectedIndex = weaponsInSlot - 1;
-        SelectWeapon();
+[System.Serializable]
+public struct WeaponItem {
+    public GunSettings Settings;
+    public Transform instanceTransform;
+    
+    public WeaponItem (GunSettings Settings, Transform instanceTransform) {
+        this.Settings = Settings;
+        this.instanceTransform = instanceTransform;
     }
 }

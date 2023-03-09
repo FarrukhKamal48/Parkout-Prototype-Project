@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public List<GameObject> items;
-    private GameObject item;
+    public List<GunSettings> items;
+    private GunSettings item;
 
     public int maxInstantiations;
 
@@ -29,7 +29,7 @@ public class Item : MonoBehaviour
         Destroy(this, (1 / effectDuration) + effectDuration);
     }
     
-    public GameObject chooseItem()
+    public GunSettings chooseItem()
     {
         if (!isdestroying) {
             int randItem = Random.Range(0, items.Count-1);

@@ -12,6 +12,11 @@ public class ProjectileGun : Weapon
     public GunSettings twoHanded;
 
     public GunSettings Settings;
+    
+    public WeaponReferences weaponRefs;
+    
+    [Header("Scripts")]
+    public sway swayScript;
 
     // public Vector3 startPos;
 
@@ -92,16 +97,23 @@ public class ProjectileGun : Weapon
     
     // private variables
 
-    void Awake()
+    void Start()
     {
+        // if (gunManager.switching)
+        //     return;
+
         SetupSettings();
 
         bulletsLeft = magSize;
         _readyToShoot = true;
+        gunAnimator.SetBool("Shooting", false);
     }
 
     void Update()
     {
+        // if (gunManager.switching)
+        //     return;
+
         SetupSettings();
 
         Animation();
@@ -127,7 +139,8 @@ public class ProjectileGun : Weapon
             _isOneHanded = !_isOneHanded;
         }
 
-        Settings = _isOneHanded ? oneHanded : twoHanded;
+        // Settings = _isOneHanded ? oneHanded : twoHanded;
+        Settings = twoHanded;
 
         Weapon.isOneHanded = _isOneHanded;
     }
@@ -135,10 +148,14 @@ public class ProjectileGun : Weapon
     public override void SetupSettings()
     {
         // get the setting depending on two handed or one handed modes
-        GetSettings();
+        // GetSettings();
+        Settings = twoHanded;
 
-        // set all the settings
-        name = Settings.name;
+        // set all the gun settings
+        
+        
+        // gun stats
+        weaponRefs.name = Settings.name;
         bullet = Settings.bullet;
         muzzleFlash = Settings.muzzleFlash;
         shootForce = Settings.shootForce;
@@ -151,15 +168,37 @@ public class ProjectileGun : Weapon
         timeBetweenShots = Settings.timeBetweenShots;
         magSize = Settings.magSize;
         bulletsPerTap = Settings.bulletsPerTap;
-        allowButtonHold = Settings.allowButtonHold;
+        attackPoint = weaponRefs.attackPoint;
 
+        // key settings
+        allowButtonHold = Settings.allowButtonHold;
         aimHold = Settings.aimHold;
         altADShold = Settings.altADShold;
 
+        // animator speeds
         normalAnimSpeed = Settings.normalAnimSpeed;
         shootAnimSpeed = Settings.shootAnimSpeed;
         reloadAnimSpeed = Settings.reloadAnimSpeed;
         sprintAnimSpeed = Settings.sprintAnimSpeed;
+
+        // blend tree smoothing
+        idle_Blend_speed = Settings.idle_Blend_speed;
+        shoot_Blend_speed = Settings.shoot_Blend_speed;
+        reload_Blend_speed = Settings.reload_Blend_speed;
+        sprint_Blend_speed = Settings.sprint_Blend_speed;
+        
+        // proc animation transforms
+        hipTransform = weaponRefs.anchor_T;
+        hip = weaponRefs.hip_T;
+
+        adsRotator = weaponRefs.adsRotator;
+        ADS = weaponRefs.ADS_T;
+        t_altADS = weaponRefs.altADS_T;
+        
+        crouch = weaponRefs.crouch_T;
+
+        // gunAnimator = weaponRefs.gunAnimator;
+        // audioManager = weaponRefs.audioManager;
     }
     
     void resetCurveAnimFloats()
@@ -370,7 +409,7 @@ public class ProjectileGun : Weapon
         GameObject currentBullet = Instantiate(bullet, fpsCam.position, Quaternion.identity); // making the invisible bullet
         currentBullet.GetComponent<CustomBullet>().muzzlePoint = attackPoint;
 
-        currentBullet.transform.forward = shootDirspread.normalized; // applying Random direction to the invisible bullet
+        currentBullet.transform.forward = shootDirspread.normalized; // applying the Random direction to the invisible bullet
 
         Rigidbody bulletRB = currentBullet.GetComponent<Rigidbody>();
 
@@ -428,9 +467,4 @@ public class ProjectileGun : Weapon
         _reloading = false;
     }
     
-    void OnDisable() {
-
-        gunAnimator.SetBool("Switching", false);
-
-    }
 }

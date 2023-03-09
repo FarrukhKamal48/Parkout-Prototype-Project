@@ -4,95 +4,8 @@ using UnityEngine;
 
 public class sway : MonoBehaviour
 {
-    public Transform swayTransform;
-
-    [Space(15)]
-    [Header("Position Settings")]
-
-    public Vector3 resetPosition;
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 hipSwayAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 hipSmooth = new Vector2(5f, 2f);
-
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 aimSwayAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 aimSmooth = new Vector2(5f, 2f);
-    
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 crouchSwayAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 crouchSmooth = new Vector2(5f, 2f);
-
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 sprintSwayAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 sprintSmooth = new Vector2(5f, 2f);
-
-
-    [Space(15)]
-    [Header("Rotation Settings")]
-
-    public Quaternion resetRotation;
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 hipRotAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 hipRotSmooth = new Vector2(5f, 2f);
-
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 aimRotAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 aimRotSmooth = new Vector2(5f, 2f);
-    
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 crouchRotAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 crouchRotSmooth = new Vector2(5f, 2f);
-
-
-    [Space(10)]
-    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 sprintRotAmount = new Vector2(0.055f, 0.09f);
-
-    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
-    public Vector2 sprintRotSmooth = new Vector2(5f, 2f);
-    
-    [Space(5)]
-    [Header("Movement Sway")]
-    [Tooltip("X is for forwardfactor. Y is for bacward factor")]
-    public Vector2 forwardMoveFactor = new Vector2(0.8f, 0.4f);
-
-    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 hipZAmount;
-
-    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 aimZAmount;
-
-    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
-    public Vector2 crouchZAmount;
-
+    public GunSettings Settings;
+    public WeaponReferences weaponRefs;
 
     Vector2 _swayAmount;
     Vector2 _smooth;
@@ -107,8 +20,11 @@ public class sway : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        def = swayTransform.localPosition;
-        defRot = swayTransform.localRotation;
+        // if (weaponRefs == null || Settings == null)
+        //     return;
+
+        def = weaponRefs.swayPivot.localPosition;
+        defRot = weaponRefs.swayPivot.localRotation;
         SwaySettings();
     }
 
@@ -116,45 +32,45 @@ public class sway : MonoBehaviour
     {
         if (PlayerController.aiming)
         {
-            _swayAmount = aimSwayAmount;
-            _smooth = aimSmooth;
+            _swayAmount = Settings.aimSwayAmount;
+            _smooth = Settings.aimSmooth;
 
-            _swayRotAmount = aimRotAmount;
-            _smoothRot = aimRotSmooth;
-            _ZrotAmount = aimZAmount;
+            _swayRotAmount = Settings.aimRotAmount;
+            _smoothRot = Settings.aimRotSmooth;
+            _ZrotAmount = Settings.aimZAmount;
         }
         else if (PlayerController.Sprinting)
         {
-            _swayAmount = sprintSwayAmount;
-            _smooth = sprintSmooth;
+            _swayAmount = Settings.sprintSwayAmount;
+            _smooth = Settings.sprintSmooth;
 
-            _swayRotAmount = sprintRotAmount;
-            _smoothRot = sprintRotSmooth;
+            _swayRotAmount = Settings.sprintRotAmount;
+            _smoothRot = Settings.sprintRotSmooth;
             _ZrotAmount = Vector2.zero;
         }
         else if (PlayerController.crouching)
         {
-            _swayAmount = crouchSwayAmount;
-            _smooth = crouchSmooth;
+            _swayAmount = Settings.crouchSwayAmount;
+            _smooth = Settings.crouchSmooth;
 
-            _swayRotAmount = crouchRotAmount;
-            _smoothRot = crouchRotSmooth;
-            _ZrotAmount = crouchZAmount;
+            _swayRotAmount = Settings.crouchRotAmount;
+            _smoothRot = Settings.crouchRotSmooth;
+            _ZrotAmount = Settings.crouchZAmount;
         }
         else
         {
-            _swayAmount = hipSwayAmount;
-            _smooth = hipSmooth;
+            _swayAmount = Settings.hipSwayAmount;
+            _smooth = Settings.hipSmooth;
 
-            _swayRotAmount = hipRotAmount;
-            _smoothRot = hipRotSmooth;
-            _ZrotAmount = hipZAmount;
+            _swayRotAmount = Settings.hipRotAmount;
+            _smoothRot = Settings.hipRotSmooth;
+            _ZrotAmount = Settings.hipZAmount;
         }
     }
 
     void UpdateSwayPosition()
     {
-        swayTransform.localPosition = Vector3.Lerp(swayTransform.localPosition, resetPosition, _smooth.y * Time.deltaTime);
+        weaponRefs.swayPivot.localPosition = Vector3.Lerp(weaponRefs.swayPivot.localPosition, Settings.resetPosition, _smooth.y * Time.deltaTime);
 
         float factroX = -Input.GetAxis("Mouse X") * _swayAmount.x;
         float factroY = -Input.GetAxis("Mouse Y") * _swayAmount.x;
@@ -172,12 +88,12 @@ public class sway : MonoBehaviour
             factroY = -_swayAmount.y;
 
         Vector3 final = new Vector3(def.x + factroX, def.y + factroY, def.z);
-        swayTransform.localPosition = Vector3.Lerp(swayTransform.localPosition, final, _smooth.x * Time.deltaTime);
+        weaponRefs.swayPivot.localPosition = Vector3.Lerp(weaponRefs.swayPivot.localPosition, final, _smooth.x * Time.deltaTime);
     }
 
     void UpdateSwayRotation()
     {
-        swayTransform.localRotation = Quaternion.Slerp(swayTransform.localRotation, resetRotation, _smoothRot.y * Time.deltaTime);
+        weaponRefs.swayPivot.localRotation = Quaternion.Slerp(weaponRefs.swayPivot.localRotation, Settings.resetRotation, _smoothRot.y * Time.deltaTime);
 
         //controls
         float t_x_mouse = Input.GetAxis("Mouse X") * _swayRotAmount.x;
@@ -209,7 +125,7 @@ public class sway : MonoBehaviour
 
         //calculate target rotation
         
-        float forwardFactor = t_y_move >= 0f ? forwardMoveFactor.x * t_y_move : forwardMoveFactor.y * t_y_move;
+        float forwardFactor = t_y_move >= 0f ? Settings.forwardMoveFactor.x * t_y_move : Settings.forwardMoveFactor.y * t_y_move;
         
         Quaternion t_x_adj = Quaternion.AngleAxis(t_x_mouse, Vector3.up);
         Quaternion t_y_adj = Quaternion.AngleAxis(t_y_mouse + forwardFactor, Vector3.right);
@@ -217,12 +133,15 @@ public class sway : MonoBehaviour
         Quaternion target_rotation = defRot * t_x_adj * t_y_adj * t_z_adj;
 
         //rotate towards target rotation
-        swayTransform.localRotation = Quaternion.Slerp(swayTransform.localRotation, target_rotation, Time.deltaTime * _smoothRot.x);
+        weaponRefs.swayPivot.localRotation = Quaternion.Slerp(weaponRefs.swayPivot.localRotation, target_rotation, Time.deltaTime * _smoothRot.x);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        // if (weaponRefs == null || Settings == null)
+        //     return;
+
         SwaySettings();
         UpdateSwayPosition();
         UpdateSwayRotation();

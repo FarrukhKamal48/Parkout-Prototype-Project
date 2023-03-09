@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: Test Gun_TWO_HANDED
   m_EditorClassIdentifier: 
   name: Test Gun
+  weaponObject: {fileID: 181472309113435678, guid: 54fe99f960cae834ab0c3bcb7df9e19c, type: 3}
   bullet: {fileID: 1532864925514695183, guid: ea47f6cb52b42074a93014ad8793dd8c, type: 3}
   muzzleFlash: {fileID: 7144419388380033530, guid: 039d35ca70f70be4c82f2c93bfafa74a, type: 3}
+  weaponRefs: {fileID: 352469715634405196, guid: 54fe99f960cae834ab0c3bcb7df9e19c, type: 3}
+  audioManager: {fileID: 632010854488469005, guid: 54fe99f960cae834ab0c3bcb7df9e19c, type: 3}
   ReloadKey: 114
   altAdsKey: 120
   shootForce: 250
@@ -320,3 +323,29 @@ MonoBehaviour:
   shootAnimSpeed: 1
   reloadAnimSpeed: 1
   sprintAnimSpeed: 1
+  idle_Blend_speed: 10
+  shoot_Blend_speed: 10
+  reload_Blend_speed: 10
+  sprint_Blend_speed: 10
+  resetPosition: {x: 0, y: 0, z: 0}
+  hipSwayAmount: {x: 0.055, y: 0.09}
+  hipSmooth: {x: 5, y: 2}
+  aimSwayAmount: {x: 0.055, y: 0.09}
+  aimSmooth: {x: 5, y: 2}
+  crouchSwayAmount: {x: 0.055, y: 0.09}
+  crouchSmooth: {x: 5, y: 2}
+  sprintSwayAmount: {x: 0.055, y: 0.09}
+  sprintSmooth: {x: 5, y: 2}
+  resetRotation: {x: 0, y: 0, z: 0, w: 0}
+  hipRotAmount: {x: 0.055, y: 0.09}
+  hipRotSmooth: {x: 5, y: 2}
+  aimRotAmount: {x: 0.055, y: 0.09}
+  aimRotSmooth: {x: 5, y: 2}
+  crouchRotAmount: {x: 0.055, y: 0.09}
+  crouchRotSmooth: {x: 5, y: 2}
+  sprintRotAmount: {x: 0.055, y: 0.09}
+  sprintRotSmooth: {x: 5, y: 2}
+  forwardMoveFactor: {x: 0.8, y: 0.4}
+  hipZAmount: {x: 1, y: 1}
+  aimZAmount: {x: 1, y: 1}
+  crouchZAmount: {x: 1, y: 1}

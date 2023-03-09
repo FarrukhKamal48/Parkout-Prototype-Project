@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RecoilScript : MonoBehaviour
 {
+    public GunSettings gunSettings;
+
     public Transform recoilTransform;
 
     // rotations
@@ -14,23 +16,19 @@ public class RecoilScript : MonoBehaviour
     Vector3 currentPosition;
     Vector3 targetPosition;
 
-    ProjectileGun gunScript;
-
     void Update()
     {
-        gunScript = GunManager.currentgun.thisGun;
-
-        if (GunManager.currentgun.thisGun != null)
+        if (gunSettings != null)
             ResetSway();
     }
     
     void ResetSway()
     {
-        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, gunScript.Settings.returnSpeed * Time.deltaTime);
-        currentRotation = Vector3.Slerp(currentRotation, targetRotation, gunScript.Settings.snapiness * Time.deltaTime);
+        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, gunSettings.returnSpeed * Time.deltaTime);
+        currentRotation = Vector3.Slerp(currentRotation, targetRotation, gunSettings.snapiness * Time.deltaTime);
 
-        targetPosition = Vector3.Lerp(targetPosition, Vector3.zero, gunScript.Settings.returnSpeed * Time.deltaTime);
-        currentPosition = Vector3.Slerp(currentPosition, targetPosition, gunScript.Settings.snapiness * Time.deltaTime);
+        targetPosition = Vector3.Lerp(targetPosition, Vector3.zero, gunSettings.returnSpeed * Time.deltaTime);
+        currentPosition = Vector3.Slerp(currentPosition, targetPosition, gunSettings.snapiness * Time.deltaTime);
 
         recoilTransform.localRotation = Quaternion.Euler(currentRotation);
         recoilTransform.localPosition = currentPosition;
@@ -43,13 +41,13 @@ public class RecoilScript : MonoBehaviour
 
         if (isAiming == true)
         {
-            _recoilPosition = gunScript.Settings.aimRecoilPosition;
-            _recoilRotation = gunScript.Settings.aimRecoilRotation;
+            _recoilPosition = gunSettings.aimRecoilPosition;
+            _recoilRotation = gunSettings.aimRecoilRotation;
         }
         else
         {
-            _recoilPosition = gunScript.Settings.recoilPosition;
-            _recoilRotation = gunScript.Settings.recoilRotation;
+            _recoilPosition = gunSettings.recoilPosition;
+            _recoilRotation = gunSettings.recoilRotation;
         }
 
 

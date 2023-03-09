@@ -5,9 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GunSettings", menuName = "WeaponSettings/GunSettings", order = 0)]
 public class GunSettings : ScriptableObject
 {
+    [Header("Prefabs")]
     public new string name;
+    public GameObject weaponObject;
     public GameObject bullet;
     public GameObject muzzleFlash;
+    
+    [Header("Scripts")]
+    public WeaponReferences weaponRefs;
+    public AudioManager audioManager;
 
     [Space(10)]
     [Header("Controls")]
@@ -70,4 +76,100 @@ public class GunSettings : ScriptableObject
     public float shootAnimSpeed; 
     public float reloadAnimSpeed; 
     public float sprintAnimSpeed; 
+    
+    [Space(10)]
+    [Header("Animator Blend tree settings")]
+    public float idle_Blend_speed;
+    public float shoot_Blend_speed;
+    public float reload_Blend_speed;
+    public float sprint_Blend_speed;
+    
+    [Space(10)]
+    [Header("Weapon Sway Settings")]
+
+    [Header("Position Settings")]
+
+    public Vector3 resetPosition;
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 hipSwayAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 hipSmooth = new Vector2(5f, 2f);
+
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 aimSwayAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 aimSmooth = new Vector2(5f, 2f);
+    
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 crouchSwayAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 crouchSmooth = new Vector2(5f, 2f);
+
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 sprintSwayAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 sprintSmooth = new Vector2(5f, 2f);
+
+
+    [Space(10)]
+    [Header("Rotation Settings")]
+
+    public Quaternion resetRotation;
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 hipRotAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 hipRotSmooth = new Vector2(5f, 2f);
+
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 aimRotAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 aimRotSmooth = new Vector2(5f, 2f);
+    
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 crouchRotAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 crouchRotSmooth = new Vector2(5f, 2f);
+
+
+    [Space(5)]
+    [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 sprintRotAmount = new Vector2(0.055f, 0.09f);
+
+    [Tooltip("X is for smooth amount. Y is for reset smooth amount.")]
+    public Vector2 sprintRotSmooth = new Vector2(5f, 2f);
+    
+    [Space(5)]
+    [Header("Movement Sway")]
+    [Tooltip("X is for forwardfactor. Y is for bacward factor")]
+    public Vector2 forwardMoveFactor = new Vector2(0.8f, 0.4f);
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 hipZAmount;
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 aimZAmount;
+
+    // [Tooltip("X is for Sway amount. Y is for maximum Sway amount.")]
+    public Vector2 crouchZAmount;
 }
