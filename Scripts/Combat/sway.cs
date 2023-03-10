@@ -20,8 +20,8 @@ public class sway : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // if (weaponRefs == null || Settings == null)
-        //     return;
+        if (weaponRefs == null || Settings == null)
+            return;
 
         def = weaponRefs.swayPivot.localPosition;
         defRot = weaponRefs.swayPivot.localRotation;
@@ -139,8 +139,8 @@ public class sway : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        // if (weaponRefs == null || Settings == null)
-        //     return;
+        if (weaponRefs == null || Settings == null)
+            return;
 
         SwaySettings();
         UpdateSwayPosition();

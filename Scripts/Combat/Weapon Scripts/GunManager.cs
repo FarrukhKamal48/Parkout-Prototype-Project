@@ -21,6 +21,7 @@ public class GunManager : MonoBehaviour
     public bool slotFull;
     public bool switchingOut = false;
     public bool switchingIn = false;
+    public bool switching = false;
     public int selectedIndex = 0;
 
     public static GunSettings currentgunSettings;
@@ -49,7 +50,7 @@ public class GunManager : MonoBehaviour
         
         Equip(weapons);
 
-        SelectWeapon();
+        StartingWeapon();
 
         weaponRefs = currentGunObject.GetComponent<WeaponReferences>();
     }
@@ -115,11 +116,11 @@ public class GunManager : MonoBehaviour
         
         selectedIndex = Mathf.Clamp(selectedIndex, 0, weaponsInSlot - 1);
         
-        UpdateScripts();
+        // UpdateScripts();
 
         if (prevSelectIndex != selectedIndex)
         {
-            SelectWeapon();
+            StartCoroutine(SelectWeapon());
             // iKHandler.updateTargets();
         }
     }
@@ -169,9 +170,9 @@ public class GunManager : MonoBehaviour
             switchingIn = true;
         }
     }
-
-    void SelectWeapon()
-    {
+    
+    void StartingWeapon() {
+        
         Transform prevGunObject;
         prevGunObject = currentGunObject;
 
@@ -180,7 +181,6 @@ public class GunManager : MonoBehaviour
         
         // create the new gun object
         GameObject loadedGunObject = Instantiate(currentgunSettings.weaponObject);
-        print("instantiate");
 
         loadedGunObject.transform.SetParent(weaponHolder);
         loadedGunObject.transform.localEulerAngles = Vector3.zero;
@@ -194,6 +194,59 @@ public class GunManager : MonoBehaviour
         if (prevGunObject != null) {
             Destroy(prevGunObject.gameObject);
         }
+        
+        // HandleSwitchAnim(prevGunObject);
+        
+        UpdateScripts();
+    }
+
+    IEnumerator SelectWeapon() {
+
+        switchingIn = false;
+        switchingOut = true;
+        print("switching out");
+
+        switching = true;
+        
+        yield return new WaitForSeconds(currentgunSettings.switchDuration);
+
+        if (currentGunObject != null) {
+            Destroy(currentGunObject.gameObject);
+        }
+
+        switchingIn = true;
+        switchingOut = false;
+        print("switching in");
+
+        // Transform prevGunObject;
+        // prevGunObject = currentGunObject;
+
+        // set current gun settings
+        currentgunSettings = weapons[selectedIndex];
+        
+        // create the new gun object
+        GameObject loadedGunObject = Instantiate(currentgunSettings.weaponObject);
+
+        loadedGunObject.transform.SetParent(weaponHolder);
+        loadedGunObject.transform.localEulerAngles = Vector3.zero;
+        loadedGunObject.transform.localPosition = currentgunSettings.weaponRefs.startPos;
+        loadedGunObject.name = currentgunSettings.name;
+        
+        currentGunObject = loadedGunObject.transform;
+        weaponRefs = currentGunObject.GetComponent<WeaponReferences>();
+        
+        yield return new WaitForSeconds(currentgunSettings.switchDuration);
+        
+        switchingIn = false;
+        switchingOut = false;
+        
+        switching = false;
+        print("switched");
+
+        // destroy the previous gun object
+        // if (prevGunObject != null) {
+        //     Destroy(prevGunObject.gameObject);
+        // }
         
         // HandleSwitchAnim(prevGunObject);
         
@@ -266,7 +319,7 @@ public class GunManager : MonoBehaviour
         Destroy(currentGunObject.gameObject);
         weapons.Remove(weapon);
 
-        SelectWeapon();
+        StartCoroutine(SelectWeapon());
     }
 }
 

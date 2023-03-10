@@ -99,20 +99,21 @@ public class ProjectileGun : Weapon
 
     void Start()
     {
-        // if (gunManager.switching)
-        //     return;
-
-        SetupSettings();
-
         bulletsLeft = magSize;
         _readyToShoot = true;
         gunAnimator.SetBool("Shooting", false);
+
+        if (gunManager.switching)
+            return;
+
+        SetupSettings();
+
     }
 
     void Update()
     {
-        // if (gunManager.switching)
-        //     return;
+        if (gunManager.switching)
+            return;
 
         SetupSettings();
 
