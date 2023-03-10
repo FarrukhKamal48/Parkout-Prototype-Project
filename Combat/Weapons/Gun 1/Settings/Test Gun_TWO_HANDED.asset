@@ -20,7 +20,7 @@ MonoBehaviour:
   audioManager: {fileID: 632010854488469005, guid: 54fe99f960cae834ab0c3bcb7df9e19c, type: 3}
   ReloadKey: 114
   altAdsKey: 120
-  shootForce: 250
+  shootForce: 150
   upwardForce: 0
   fireRate: 0.3
   shootWarmUp: 0
@@ -328,24 +328,24 @@ MonoBehaviour:
   reload_Blend_speed: 10
   sprint_Blend_speed: 10
   resetPosition: {x: 0, y: 0, z: 0}
-  hipSwayAmount: {x: 0.055, y: 0.09}
+  hipSwayAmount: {x: 0.09, y: 0.15}
   hipSmooth: {x: 5, y: 2}
-  aimSwayAmount: {x: 0.055, y: 0.09}
+  aimSwayAmount: {x: 0.01, y: 0.02}
   aimSmooth: {x: 5, y: 2}
   crouchSwayAmount: {x: 0.055, y: 0.09}
   crouchSmooth: {x: 5, y: 2}
   sprintSwayAmount: {x: 0.055, y: 0.09}
   sprintSmooth: {x: 5, y: 2}
   resetRotation: {x: 0, y: 0, z: 0, w: 0}
-  hipRotAmount: {x: 0.055, y: 0.09}
+  hipRotAmount: {x: 2, y: 3.5}
   hipRotSmooth: {x: 5, y: 2}
-  aimRotAmount: {x: 0.055, y: 0.09}
+  aimRotAmount: {x: 2, y: 2.2}
   aimRotSmooth: {x: 5, y: 2}
-  crouchRotAmount: {x: 0.055, y: 0.09}
+  crouchRotAmount: {x: 1.6, y: 2.2}
   crouchRotSmooth: {x: 5, y: 2}
   sprintRotAmount: {x: 0.055, y: 0.09}
   sprintRotSmooth: {x: 5, y: 2}
   forwardMoveFactor: {x: 0.8, y: 0.4}
-  hipZAmount: {x: 1, y: 1}
-  aimZAmount: {x: 1, y: 1}
-  crouchZAmount: {x: 1, y: 1}
+  hipZAmount: {x: 5, y: 10}
+  aimZAmount: {x: 2, y: 3}
+  crouchZAmount: {x: 3.5, y: 4}
