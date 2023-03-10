@@ -309,7 +309,10 @@ public class ProjectileGun : Weapon
         
 
         // setting animator parameters
-        gunAnimator.SetBool("Switching", gunManager.switchingOut);
+
+        gunAnimator.SetBool("Switching In", gunManager.switchingIn);
+        gunAnimator.SetBool("Switching Out", gunManager.switchingOut);
+
         gunAnimator.SetBool("Aiming", _aiming);
         gunAnimator.SetBool("Shooting", !_readyToShoot);
         gunAnimator.SetBool("Reloading", _reloading);

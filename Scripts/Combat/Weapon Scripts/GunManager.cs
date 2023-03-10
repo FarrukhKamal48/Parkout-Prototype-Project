@@ -39,7 +39,6 @@ public class GunManager : MonoBehaviour
     
     int prevSelectIndex;
     
-    float selectionDuration;
 
     void Awake()
     {
@@ -57,16 +56,29 @@ public class GunManager : MonoBehaviour
 
     void Update()
     {
-        if (weapons.Count != 0)
-        {
-            //currentGun_t = weapons[selectedIndex];
-            //currentgun = currentGun_t.GetComponent<ProjectileGun>();
-            //currentgun.gunManager = this;
-        }
         
         if (weaponsInSlot == maxSlot) slotFull = true;
         else slotFull = false;
 
+        
+        HandlePickAndDrop();
+
+        prevSelectIndex = selectedIndex;
+
+        prevgunSettings = weapons[prevSelectIndex];
+
+        SelectIndex();
+
+        if (prevSelectIndex != selectedIndex && !switching)
+        {
+            StartCoroutine(SelectWeapon());
+        }
+        
+        
+    }
+    
+    void HandlePickAndDrop() {
+        
         RaycastHit hit;
 
         if (Physics.Raycast(weaponHolder.position, weaponHolder.forward, out hit, pickUpRange))
@@ -87,18 +99,16 @@ public class GunManager : MonoBehaviour
         {
             Drop(weapons[selectedIndex]);
         }
-
-
-        // input
-
-        prevSelectIndex = selectedIndex;
-
-
-        prevgunSettings = weapons[prevSelectIndex];
-        selectionDuration = prevgunSettings.switchDuration + 
-            prevgunSettings.switchDuration; 
-
-
+    }
+    
+    void SetSwitchingBools() {
+        
+        weaponRefs.gunAnimator.SetBool("Switching In", switchingIn);
+        weaponRefs.gunAnimator.SetBool("Switching Out", switchingOut);
+    }
+    
+    void SelectIndex() {
+        
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             if (selectedIndex == weaponsInSlot - 1)
@@ -115,60 +125,20 @@ public class GunManager : MonoBehaviour
         }
         
         selectedIndex = Mathf.Clamp(selectedIndex, 0, weaponsInSlot - 1);
-        
-        // UpdateScripts();
-
-        if (prevSelectIndex != selectedIndex)
-        {
-            StartCoroutine(SelectWeapon());
-            // iKHandler.updateTargets();
-        }
     }
     
     void UpdateScripts() {
 
         currentgunScript.twoHanded = currentgunSettings;
         currentgunScript.weaponRefs = weaponRefs;
-        currentgunScript.gunAnimator = weaponRefs.transform.GetComponent<Animator>();
-        currentgunScript.audioManager = weaponRefs.transform.GetComponent<AudioManager>();
+        currentgunScript.gunAnimator = weaponRefs.gunAnimator;
+        currentgunScript.audioManager = weaponRefs.audioManager;
         
         cameraRecoil.gunSettings = currentgunSettings;
         
         swayScript.weaponRefs = weaponRefs;
         swayScript.Settings = currentgunSettings;
 
-    }
-    
-    void HandleSwitchAnim(Transform prevGunObject) {
-        
-        // spawn the new gun
-        // disable all of its meshes
-        //
-        // set switching out of the previous gun to true
-        // wait for the switch duration of previous gun
-        // set switching out of the previous gun to false
-        //
-        // destroy the previous gun
-        //
-        // enable the current gun's meshes
-        //
-        // set switching in of the current gun to true
-        // wait for the switch duration of current gun
-        // set switching in of the current gun to false
-        
-        weaponRefs.SetActiveMeshes(false);
-        
-        switchingOut = true;
-        switchingIn = false;
-        
-        // destroy the previous gun object
-        if (prevGunObject != null) {
-            Destroy(prevGunObject.gameObject, prevgunSettings.switchDuration);
-        }
-        else {
-            switchingOut = false;
-            switchingIn = true;
-        }
     }
     
     void StartingWeapon() {
@@ -202,79 +172,59 @@ public class GunManager : MonoBehaviour
 
     IEnumerator SelectWeapon() {
 
+        print("One");
+
+        // holster in
         switchingIn = false;
         switchingOut = true;
-        print("switching out");
-
         switching = true;
+
+        SetSwitchingBools();
+
         
         yield return new WaitForSeconds(currentgunSettings.switchDuration);
+
 
         if (currentGunObject != null) {
             Destroy(currentGunObject.gameObject);
         }
 
+        // holster out
         switchingIn = true;
         switchingOut = false;
-        print("switching in");
-
-        // Transform prevGunObject;
-        // prevGunObject = currentGunObject;
 
         // set current gun settings
         currentgunSettings = weapons[selectedIndex];
         
         // create the new gun object
         GameObject loadedGunObject = Instantiate(currentgunSettings.weaponObject);
-
+        
+        // set gun objects position, rotation, name and parent
         loadedGunObject.transform.SetParent(weaponHolder);
         loadedGunObject.transform.localEulerAngles = Vector3.zero;
         loadedGunObject.transform.localPosition = currentgunSettings.weaponRefs.startPos;
         loadedGunObject.name = currentgunSettings.name;
-        
+
+        // set references
         currentGunObject = loadedGunObject.transform;
         weaponRefs = currentGunObject.GetComponent<WeaponReferences>();
+
+        SetSwitchingBools();
         
+
         yield return new WaitForSeconds(currentgunSettings.switchDuration);
-        
+
+        // stop switching
         switchingIn = false;
         switchingOut = false;
-        
         switching = false;
-        print("switched");
 
-        // destroy the previous gun object
-        // if (prevGunObject != null) {
-        //     Destroy(prevGunObject.gameObject);
-        // }
-        
-        // HandleSwitchAnim(prevGunObject);
-        
+        SetSwitchingBools();
+
         UpdateScripts();
-
-
-        // to set whether the player is switching a weapon
-        // StartCoroutine(SelectionDelay());
         
     }
     
-    IEnumerator SelectionDelay() {
-
-        switchingOut = true;
-        switchingIn = false;
-        
-        yield return new WaitForSeconds(prevgunSettings.switchDuration);
-        
-        switchingOut = false;
-        switchingIn = true;
-        
-        yield return new WaitForSeconds(currentgunSettings.switchDuration);
-
-        switchingOut = false;
-        switchingIn = false;
-
-    }
-
     void Equip(GunSettings weapon)
     {
         weaponsInSlot++;
